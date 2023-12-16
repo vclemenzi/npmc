@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/check": "^0.3.3",
     "@astrojs/tailwind": "^5.0.3",
+    "@astrojs/vercel": "^6.1.0",
     "astro": "^4.0.6",
     "marked": "^11.1.0",
     "prettier": "^3.1.1",
