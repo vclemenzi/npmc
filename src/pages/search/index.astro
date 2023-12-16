@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { PackageSearch } from "../../types/Package";
+
+const q = Astro.url.searchParams.get("q");
+
+if (!q) return Astro.redirect("/");
+
+const results = await fetch(`https://registry.npmjs.com/-/v1/search?text=${q}`).then(
+  (res) => res.json() as Promise<{ objects: PackageSearch[] }>,
+);
+
+console.log(results);
+---
+
+<Layout title={`${q} on NPM`}>
+  <div>
+    {
+      results.objects.map((data) => {
+        const pkg = data.package;
+
+        return (
+          <a class="text-white no-underline" href={`/${pkg.name}`}>
+            <div class="bg-surface mb-2 rounded-lg p-3 pl-4 pr-4">
+              <div class="bg-surface text-xl font-semibold">
+                {pkg.name}
+                <span class="rounded bg-green-600 p-1 pl-2 pr-2">{pkg.version}</span>
+              </div>
+
+              <p class="bg-surface text-lg">{pkg.description}</p>
+
+              <div class="break-words">
+                {pkg.keywords
+                  ? pkg.keywords.map((keyword: string) => {
+                      return <span class="bg- pl-1 pr-1 font-semibold">#{keyword}</span>;
+                    })
+                  : ""}
+              </div>
+            </div>
+          </a>
+        );
+      })
+    }
+  </div>
+</Layout>
