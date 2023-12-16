@@ -20,7 +20,7 @@ const path = Astro.url.pathname;
     {
       path !== "/" ? (
         <nav class="flex items-center justify-between p-1 pb-4 pl-4 pr-4">
-          <div>
+          <div class="hidden md:block">
             <a class="text-xl text-white no-underline" href="/">
               NPMC
             </a>
@@ -31,12 +31,12 @@ const path = Astro.url.pathname;
               <input
                 name="q"
                 placeholder="React, Vue, Astro..."
-                class="bg-surface w-96 rounded-full border-none p-2 pl-4 pr-4 text-lg text-white focus:outline-none"
+                class="bg-surface w-80 rounded-full border-none p-2 pl-4 pr-4 text-lg text-white focus:outline-none"
               />
             </form>
           </div>
 
-          <div>
+          <div class="hidden md:block">
             <a class="text-white no-underline" href="https://github.com/vclemenzi/npmc">
               GitHub
             </a>

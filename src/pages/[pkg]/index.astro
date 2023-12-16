@@ -19,7 +19,7 @@ const [general, detailed] = await Promise.all([
 
 <Layout title={pkg}>
   <main class="w-full overflow-x-hidden">
-    <div class="bg-surface rounded-lg p-5 pl-8 pr-8">
+    <div class="bg-surface rounded-lg p-5 md:pl-8 md:pr-8">
       <div class="bg-surface text-2xl font-semibold">
         {detailed.name}
         <span class="rounded bg-green-600 p-1 pl-2 pr-2 text-xl">{detailed.version}</span>
@@ -42,11 +42,12 @@ const [general, detailed] = await Promise.all([
 
     <br />
 
-    <div class="flex space-x-3">
-      <div class="w-3/4">
+    <div class="space-y-3 md:flex md:space-x-3 md:space-y-0">
+      <div class="md:w-3/4">
         <div class="bg-surface rounded-lg p-2 pl-4 pr-4" set:html={marked.parse(general.readme)} />
       </div>
-      <div class="bg-surface w-1/4 rounded-lg pl-4 pr-4">
+
+      <div class="bg-surface rounded-lg pb-2 pl-4 pr-4 pt-2 md:w-1/4">
         <h3>Install</h3>
         <code class="bg-background rounded-lg border p-2 pl-5 pr-5">
           npm i {detailed.name}

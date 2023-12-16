@@ -12,7 +12,7 @@ import { packages } from "../utils/packageList";
       <input
         name="q"
         placeholder="React, Vue, Astro..."
-        class="bg-surface w-96 rounded-full border-none p-2 pl-4 pr-4 text-lg text-white focus:outline-none"
+        class="bg-surface w-80 rounded-full border-none p-2 pl-4 pr-4 text-lg text-white focus:outline-none"
       />
     </form>
   </div>
@@ -20,7 +20,7 @@ import { packages } from "../utils/packageList";
   <hr class="mt-10" />
 
   <div>
-    <div class="grid grid-cols-5 gap-3">
+    <div class="grid-cols-5 gap-3 md:grid">
       {
         packages.map((data) => {
           return <PackageCard {...data} />;
