@@ -1,7 +1,31 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import PackageCard from "../components/PackageCard.astro";
+import { packages } from "../utils/packageList";
 ---
 
 <Layout title="NPMC">
-  <h1>Explore over +1M packages</h1>
+  <div class="pt-6 text-center">
+    <h1 class="text-4xl">Explore over +1M packages</h1>
+
+    <form method="get" action="/search">
+      <input
+        name="q"
+        placeholder="React, Vue, Astro..."
+        class="bg-surface w-96 rounded-full border-none p-2 pl-4 pr-4 text-lg text-white focus:outline-none"
+      />
+    </form>
+  </div>
+
+  <hr class="mt-10" />
+
+  <div>
+    <div class="grid grid-cols-5 gap-3">
+      {
+        packages.map((data) => {
+          return <PackageCard {...data} />;
+        })
+      }
+    </div>
+  </div>
 </Layout>
