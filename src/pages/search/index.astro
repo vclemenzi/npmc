@@ -7,10 +7,8 @@ const q = Astro.url.searchParams.get("q");
 if (!q) return Astro.redirect("/");
 
 const results = await fetch(`https://registry.npmjs.com/-/v1/search?text=${q}`).then(
-  (res) => res.json() as Promise<{ objects: PackageSearch[] }>,
+  (res) => res.json() as Promise<{ objects: { package: PackageSearch }[] }>,
 );
-
-console.log(results);
 ---
 
 <Layout title={`${q} on NPM`}>

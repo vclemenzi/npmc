@@ -17,7 +17,7 @@ const [general, detailed] = await Promise.all([
 ]);
 ---
 
-<Layout title={pkg}>
+<Layout title={pkg || "Unknow"}>
   <main class="w-full overflow-x-hidden">
     <div class="bg-surface rounded-lg p-5 pr-8 md:pl-8">
       <div class="bg-surface text-2xl font-semibold">
@@ -82,7 +82,7 @@ const [general, detailed] = await Promise.all([
                     </div>
                   );
                 })
-              : detailed.author.name
+              : detailed.author?.name
           }
         </div>
       </div>

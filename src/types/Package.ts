@@ -11,7 +11,9 @@ export interface PackageDetailed {
   engines?: {
     node?: string;
   };
-  author?: { name: string }[];
+  author?: {
+    name: string
+  };
   maintainers?: {
     name: string;
   }[];
@@ -42,26 +44,4 @@ export interface PackageSearch {
     username: string;
     email: string;
   }[];
-}
-
-interface Flags {
-  insecure: number;
-}
-
-interface ScoreDetail {
-  quality: number;
-  popularity: number;
-  maintenance: number;
-}
-
-interface Score {
-  final: number;
-  detail: ScoreDetail;
-}
-
-interface PackageData {
-  package: Package;
-  flags: Flags;
-  score: Score;
-  searchScore: number;
 }
