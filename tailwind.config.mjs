@@ -2,7 +2,15 @@
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "background": "#101010",
+        "surface": "#151617"
+      }
+    },
+    fontFamily: {
+      'code': ["monospace", "Source Code Pro"]
+    }
   },
   plugins: [],
   corePlugins: {

@@ -20,9 +20,13 @@ const { title } = Astro.props;
 </html>
 
 <style is:global>
-  @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+  @import url("https://fonts.googleapis.com/css2?family=Roboto&family=Source+Code+Pro&display=swap");
 
   * {
     font-family: "Roboto", sans-serif;
+  }
+
+  body {
+    @apply bg-background text-white;
   }
 </style>

@@ -18,14 +18,14 @@ const [general, detailed] = await Promise.all([
 ---
 
 <Layout title={pkg}>
-  <main class="min-w-full">
-    <div class="rounded-lg bg-gray-100 p-5 pl-8 pr-8">
-      <div class="text-2xl font-semibold">
+  <main class="w-full overflow-x-hidden">
+    <div class="bg-surface rounded-lg p-5 pl-8 pr-8">
+      <div class="bg-surface text-2xl font-semibold">
         {detailed.name}
-        <span class="rounded bg-green-300 p-1 pl-2 pr-2 text-xl">{detailed.version}</span>
+        <span class="rounded bg-green-600 p-1 pl-2 pr-2 text-xl">{detailed.version}</span>
       </div>
 
-      <p class="text-lg">
+      <p class="bg-surface text-lg">
         {detailed.description}
       </p>
 
@@ -44,16 +44,16 @@ const [general, detailed] = await Promise.all([
 
     <div class="flex space-x-3">
       <div class="w-3/4">
-        <div class="rounded-lg bg-gray-100 p-2 pl-4 pr-4" set:html={marked.parse(general.readme)} />
+        <div class="bg-surface rounded-lg p-2 pl-4 pr-4" set:html={marked.parse(general.readme)} />
       </div>
-      <div class="w-1/4">
+      <div class="bg-surface w-1/4 rounded-lg pl-4 pr-4">
         <h3>Install</h3>
-        <code class="w-full rounded-lg border bg-gray-100 p-2 pl-5 pr-5">
+        <code class="bg-background rounded-lg border p-2 pl-5 pr-5">
           npm i {detailed.name}
         </code>
 
         <h3>Metadata</h3>
-        <ul>
+        <ul class="list-disc pl-5">
           <li>
             License: {detailed.license || "Unknow"}
           </li>
@@ -88,3 +88,21 @@ const [general, detailed] = await Promise.all([
     </div>
   </main>
 </Layout>
+
+<style is:global>
+  a {
+    @apply font-bold text-blue-600 no-underline hover:underline;
+  }
+
+  img {
+    @apply rounded;
+  }
+
+  pre code {
+    @apply font-code bg-background inline-flex rounded p-3;
+  }
+
+  code {
+    @apply bg-background rounded p-1 text-sm;
+  }
+</style>
