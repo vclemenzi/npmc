@@ -1,0 +1,90 @@
+---
+import { marked } from "marked";
+import Layout from "../../layouts/Layout.astro";
+import { PackageGeneral, PackageDetailed } from "../../types/Package.ts";
+
+interface Props {
+  pkg: string;
+}
+
+const { pkg } = Astro.params;
+
+const [general, detailed] = await Promise.all([
+  fetch(`https://registry.npmjs.com/${pkg}`).then((res) => res.json() as Promise<PackageGeneral>),
+  fetch(`https://registry.npmjs.com/${pkg}/latest`).then(
+    (res) => res.json() as Promise<PackageDetailed>,
+  ),
+]);
+---
+
+<Layout title={pkg}>
+  <main class="min-w-full">
+    <div class="rounded-lg bg-gray-100 p-5 pl-8 pr-8">
+      <div class="text-2xl font-semibold">
+        {detailed.name}
+        <span class="rounded bg-green-300 p-1 pl-2 pr-2 text-xl">{detailed.version}</span>
+      </div>
+
+      <p class="text-lg">
+        {detailed.description}
+      </p>
+
+      <div>
+        {
+          detailed.keywords
+            ? detailed.keywords.map((keyword: string) => {
+                return <span class="pl-1 pr-1 font-semibold">#{keyword}</span>;
+              })
+            : ""
+        }
+      </div>
+    </div>
+
+    <br />
+
+    <div class="flex space-x-3">
+      <div class="w-3/4">
+        <div class="rounded-lg bg-gray-100 p-2 pl-4 pr-4" set:html={marked.parse(general.readme)} />
+      </div>
+      <div class="w-1/4">
+        <h3>Install</h3>
+        <code class="w-full rounded-lg border bg-gray-100 p-2 pl-5 pr-5">
+          npm i {detailed.name}
+        </code>
+
+        <h3>Metadata</h3>
+        <ul>
+          <li>
+            License: {detailed.license || "Unknow"}
+          </li>
+
+          <li>
+            Node: {detailed.engines ? detailed.engines.node || "Whatever" : "Whatever"}
+          </li>
+
+          <li>
+            Author: {detailed.author?.name || "Unknow"}
+          </li>
+        </ul>
+
+        <h3>Maintainers</h3>
+        <div>
+          {
+            detailed.maintainers
+              ? detailed.maintainers.map((user) => {
+                  return (
+                    <div>
+                      <>
+                        <span>{user.name}</span>
+                        <br />
+                      </>
+                    </div>
+                  );
+                })
+              : detailed.author.name
+          }
+        </div>
+      </div>
+    </div>
+  </main>
+</Layout>
