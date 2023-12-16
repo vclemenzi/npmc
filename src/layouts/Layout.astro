@@ -4,6 +4,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+const path = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -15,6 +17,35 @@ const { title } = Astro.props;
     <title>{title}</title>
   </head>
   <body>
+    {
+      path !== "/" ? (
+        <nav class="flex items-center justify-between p-1 pb-4 pl-4 pr-4">
+          <div>
+            <a class="text-xl text-white no-underline" href="/">
+              NPMC
+            </a>
+          </div>
+
+          <div>
+            <form method="get" action="/search">
+              <input
+                name="q"
+                placeholder="React, Vue, Astro..."
+                class="bg-surface w-96 rounded-full border-none p-2 pl-4 pr-4 text-lg text-white focus:outline-none"
+              />
+            </form>
+          </div>
+
+          <div>
+            <a class="text-white no-underline" href="https://github.com/vclemenzi/npmc">
+              GitHub
+            </a>
+          </div>
+        </nav>
+      ) : (
+        ""
+      )
+    }
     <slot />
   </body>
 </html>
