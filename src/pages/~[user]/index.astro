@@ -28,7 +28,7 @@ $("section.ef4d7c63").each(function () {
   const description = $(this).find("p").text().trim();
   const versionText = $(this).find(".flex-ns").text().trim();
 
-  const versionRegex = /\b\d+\.\d+\.\d+\b/g; // Regex per il formato x.y.z della versione
+  const versionRegex = /\b\d+\.\d+\.\d+\b/g; 
   const versionMatches = versionRegex.exec(versionText);
   const version = versionMatches ? versionMatches[0] : "Versione non trovata";
 
