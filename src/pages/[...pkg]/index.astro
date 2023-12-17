@@ -3,6 +3,10 @@ import { Marked } from "marked";
 import { markedHighlight } from "marked-highlight";
 import hljs from "highlight.js";
 import Layout from "../../layouts/Layout.astro";
+import PackageCard from "../../components/PackageCard.astro";
+import IconLicense from "../../components/icons/License.astro";
+import IconUser from "../../components/icons/User.astro";
+import IconNode from "../../components/icons/Node.astro";
 import type { PackageGeneral, PackageDetailed } from "../../types/Package.ts";
 
 interface Props {
@@ -18,7 +22,6 @@ const list = pkg?.split("/") as string[];
 
 list.map((e) => {
   if (e.startsWith("v")) {
-    console.log(e);
     version = e.replace("v", "");
   }
 });
@@ -62,82 +65,66 @@ const marked = new Marked(
 
 <Layout title={pkg || "Unknow"} description={detailed.description}>
   <main class="w-full overflow-x-hidden">
-    <div class="rounded-lg bg-surface p-5 pr-8 md:pl-8">
-      <div class="bg-surface text-2xl font-semibold">
-        <div class="flex justify-between">
-          <div>
-            {detailed.name}
-            <span class="rounded bg-green-600 p-1 pl-2 pr-2 text-xl">{detailed.version}</span>
-          </div>
-
-          <div>
-            <a
-              href={`https://npm.runkit.com/${detailed.name}`}
-              class="flex items-center text-sm text-white"
-            >
-              Try on RunKit
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <p class="bg-surface text-lg">
-        {detailed.description}
-      </p>
-
-      <div>
-        {
-          detailed.keywords
-            ? detailed.keywords.map((keyword: string) => {
-                return <span class="pl-1 pr-1 font-semibold">#{keyword}</span>;
-              })
-            : ""
-        }
-      </div>
-    </div>
+    <PackageCard
+      name={detailed.name}
+      description={detailed.description}
+      version={detailed.version}
+      keywords={detailed.keywords || []}
+    />
 
     <br />
 
     <div class="space-y-3 md:flex md:space-x-3">
-      <div class="space-y-3 md:w-3/4">
-        <div class="flex items-center space-x-3 rounded-lg bg-surface p-3">
-          <a href={`/${pkg}`} class={`font-bold ${tab === "1" ? "text-red-400" : "text-white"}`}
-            >Readme</a
+      <div class="md:w-3/4">
+        <div class="flex items-center space-x-3 rounded-t-2xl bg-surface p-3">
+          <a
+            href={`/${pkg}`}
+            class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
+              tab === "1" ? "text-purple-400" : "text-white"
+            }`}>Readme</a
           >
           <a
             href={`/${pkg}?tab=2`}
-            class={`font-bold ${tab === "2" ? "text-red-400" : "text-white"}`}>Version</a
+            class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
+              tab === "2" ? "text-purple-400" : "text-white"
+            }`}>Version</a
           >
           <a
             href={`/${pkg}?tab=3`}
-            class={`font-bold ${tab === "3" ? "text-red-400" : "text-white"}`}>Dependencies</a
+            class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
+              tab === "3" ? "text-purple-400" : "text-white"
+            }`}>Dependencies</a
           >
         </div>
 
         {
           tab === "1" ? (
-            <div class="max-w-full rounded-lg bg-surface p-3" set:html={marked.parse(readme)} />
+            <div class="max-w-full rounded-b-2xl bg-surface p-3" set:html={marked.parse(readme)} />
           ) : tab === "2" ? (
-            <div class="grid grid-cols-6 rounded-lg bg-surface p-3">
+            <div class="grid grid-cols-6 gap-4 rounded-b-2xl bg-surface p-3">
               {Object.keys(general.versions)
                 .reverse()
                 .map((key: string) => {
-                  return <span class="p-1 text-lg">{key}</span>;
+                  return (
+                    <span class="rounded-lg bg-background p-1 pl-2 pr-2 text-center text-lg">
+                      {key}
+                    </span>
+                  );
                 })}
             </div>
           ) : (
-            <div class="break-words rounded-lg bg-surface p-3">
-              <h1 class="text-lg font-bold">Dependecies</h1>
+            <div class="break-words rounded-b-2xl bg-surface p-3">
+              <h1 class="text-lg font-bold">Dependencies</h1>
               <div>
                 {Object.keys(detailed.dependencies || {}).map((key) => {
-                  return <span class="p-1 text-lg">{key}</span>;
+                  return <span class="rounded-lg bg-background p-1 pl-2 pr-2 text-lg">{key}</span>;
                 })}
               </div>
 
-              <h1 class="text-lg font-bold">Dev dependecies</h1>
-              <div>
+              <h1 class="text-lg font-bold">Dev dependencies</h1>
+              <div class="space-x-2">
                 {Object.keys(detailed.devDependencies || {}).map((key) => {
-                  return <span class="p-1 text-lg">{key}</span>;
+                  return <span class="rounded-lg bg-background p-1 pl-2 pr-2 text-lg">{key}</span>;
                 }) || "No dev dependencies"}
               </div>
             </div>
@@ -145,7 +132,7 @@ const marked = new Marked(
         }
       </div>
 
-      <div class="rounded-lg bg-surface pb-2 pl-4 pr-4 pt-2 md:w-1/4">
+      <div class="rounded-2xl bg-surface pb-2 pl-4 pr-4 pt-2 md:w-1/4">
         <div>
           <h2>Install</h2>
           <code class="rounded-lg border bg-background p-2 pl-5 pr-5">
@@ -154,17 +141,26 @@ const marked = new Marked(
         </div>
         <div>
           <h2>Metadata</h2>
-          <ul class="list-disc pl-5">
-            <li>
-              License: {detailed.license || "Unknown"}
+          <ul class="space-y-2 pl-2">
+            <li class="flex items-center space-x-2">
+              <IconLicense />
+              <span class="rounded-lg bg-background p-1 pl-2 pr-2">
+                {detailed.license || "Unknown"}
+              </span>
             </li>
 
-            <li>
-              Node: {detailed.engines ? detailed.engines.node || "Whatever" : "Whatever"}
+            <li class="flex items-center space-x-2">
+              <IconNode />
+              <span class="rounded-lg bg-background p-1 pl-2 pr-2">
+                {detailed.engines ? detailed.engines.node || "Whatever" : "Whatever"}
+              </span>
             </li>
 
-            <li>
-              Author: {detailed.author?.name || "Unknown"}
+            <li class="flex items-center space-x-2">
+              <IconUser />
+              <span class="rounded-lg bg-background p-1 pl-2 pr-2">
+                {detailed.author?.name || "Unknown"}
+              </span>
             </li>
           </ul>
         </div>
@@ -184,7 +180,7 @@ const marked = new Marked(
                               class="h-10 w-10 rounded-full"
                               src={`/~${user.name}/profile.png`}
                             />
-                            <span>{user.name}</span>
+                            <span class="rounded-lg bg-background p-1 pl-2 pr-2">{user.name}</span>
                             <br />
                           </div>
                         </a>

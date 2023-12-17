@@ -35,27 +35,25 @@ const path = Astro.url.pathname;
               <input
                 name="q"
                 placeholder="React, Vue, Astro..."
-                class="w-80 rounded-full border-none bg-surface p-2 pl-4 pr-4 text-lg text-white focus:outline-none"
+                class="md:w-96 w-80 rounded-2xl border-0 bg-surface p-2 pl-4 pr-4 text-xl text-white focus:outline-none"
               />
             </form>
           </div>
 
           <div class="hidden md:block">
-            <a class="text-white no-underline" href="https://github.com/vclemenzi/npmc">
+            <a class="text-white no-underline bg-surface rounded-xl p-2 pl-3 pr-3" href="https://github.com/vclemenzi/npmc">
               GitHub
             </a>
           </div>
         </nav>
-      ) : (
-        ""
-      )
+      ) : <></>
     }
     <slot />
   </body>
 </html>
 
 <style is:global>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&family=Roboto&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&family=Roboto&display=swap");
 
   * {
     font-family: "Roboto", sans-serif;

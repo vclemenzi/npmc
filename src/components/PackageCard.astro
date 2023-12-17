@@ -1,13 +1,29 @@
 ---
 interface Props {
   name: string;
+  version: string;
+  description: string;
+  keywords: string[];
 }
 
-const { name } = Astro.props;
+const { name, version, description, keywords } = Astro.props;
 ---
 
-<a class="text-white no-underline" href={`/${name}`}>
-  <div class="bg-surface p-3 rounded text-lg font-bold text-center mb-2">
-    <span>{name}</span>
+<div class="rounded-2xl bg-surface p-3 pl-5 pr-5">
+  <div>
+    <div class="flex items-center space-x-2">
+      <h1 class="text-2xl">{name}</h1>
+      <span class="text-xl bg-background p-1 pl-3 pr-3 rounded-xl">v{version}</span>
+    </div>
+
+    <span class="text-lg">{description}</span>
+
+    <div class="space-x-2 mt-2">
+      {
+        keywords ? keywords.map((keyword: string) => {
+          return <span class="text-lg/8 bg-purple-400 p-1 rounded-lg pl-2 pr-2 text-background">{keyword}</span>;
+        }) : <></>
+      }
+    </div>
   </div>
-</a>
+</div>
