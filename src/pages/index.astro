@@ -3,14 +3,16 @@ import Layout from "../layouts/Layout.astro";
 ---
 
 <Layout title="NPMC">
-  <div class="flex justify-center pt-96">
+  <div class="pt-4 text-center md:flex md:justify-center md:pt-96">
     <div>
-      <h1 class="text-5xl">Explore over 1M <span class="text-purple-500">packages</span></h1>
+      <h1 class="text-center text-4xl md:text-5xl">
+        Explore over 1M <span class="text-purple-500">packages</span>
+      </h1>
 
       <form method="get" action="/search">
         <input
           name="q"
-          class="w-full rounded-2xl border-0 bg-surface p-2 pl-4 pr-4 text-xl text-white focus:outline-none"
+          class="w-80 rounded-2xl border-0 bg-surface p-2 pl-4 pr-4 text-xl text-white focus:outline-none md:w-full"
           placeholder="Like react, vue, astro..."
         />
       </form>
