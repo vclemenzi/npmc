@@ -12,18 +12,32 @@ interface Props {
 const { pkg } = Astro.params;
 const tab = Astro.url.searchParams.get("tab") || "1";
 
+// Get Version or use latest
+let version = "latest";
+const list = pkg?.split("/") as string[];
+
+list.map((e) => {
+  if (e.startsWith("v")) {
+    console.log(e);
+    version = e.replace("v", "");
+  }
+});
+
+const packageName = pkg?.replace(`/v${version}`, "");
 const [general, detailed] = await Promise.all([
-  fetch(`https://registry.npmjs.com/${pkg}`).then((res) => res.json() as Promise<PackageGeneral>),
-  fetch(`https://registry.npmjs.com/${pkg}/latest`).then(
+  fetch(`https://registry.npmjs.com/${packageName}`).then(
+    (res) => res.json() as Promise<PackageGeneral>,
+  ),
+  fetch(`https://registry.npmjs.com/${packageName}/${version}`).then(
     (res) => res.json() as Promise<PackageDetailed>,
   ),
 ]);
 
 let readme = general.readme;
 
+// Get Readme from GitHub
 if (!general.readme) {
-  // Get Readme from GitHub
-  if (general.repository.type !== "git") return;
+  if (general.repository?.type !== "git") return;
 
   const url = general.repository.url.replace("git+", "").replace("ssh://git@", "");
   const repo = url.split("github.com/")[1].replace(".git", "");
