@@ -18,7 +18,7 @@ const { name, version, description, keywords } = Astro.props;
 
     <span class="text-lg">{description}</span>
 
-    <div class="space-x-2 mt-2">
+    <div class="space-x-2 mt-2 break-words">
       {
         keywords ? keywords.map((keyword: string) => {
           return <span class="text-lg/8 bg-purple-400 p-1 rounded-lg pl-2 pr-2 text-background">{keyword}</span>;
