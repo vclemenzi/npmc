@@ -15,6 +15,7 @@
     "@astrojs/tailwind": "^5.0.3",
     "@astrojs/vercel": "^6.1.0",
     "astro": "^4.0.6",
+    "cheerio": "1.0.0-rc.12",
     "marked": "^11.1.0",
     "prettier": "^3.1.1",
     "prettier-plugin-astro": "^0.12.2",

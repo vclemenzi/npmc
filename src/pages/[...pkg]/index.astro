@@ -139,12 +139,13 @@ if (!general.readme) {
               detailed.maintainers
                 ? detailed.maintainers.map((user) => {
                     return (
-                      <div>
-                        <>
+                      <a class="text-white no-underline" href={`/~${user.name}`}>
+                        <div class="mb-2 flex items-center space-x-2">
+                          <img class="h-10 w-10 rounded-full" src={`/~${user.name}/profile.png`} />
                           <span>{user.name}</span>
                           <br />
-                        </>
-                      </div>
+                        </div>
+                      </a>
                     );
                   })
                 : detailed.author?.name
