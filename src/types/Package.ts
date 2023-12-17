@@ -3,6 +3,10 @@ export interface PackageGeneral {
   versions: {
     [key: string]: PackageDetailed;
   }[];
+  repository: {
+    type: string;
+    url: string;
+  };
 }
 
 export interface PackageDetailed {

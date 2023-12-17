@@ -16,6 +16,22 @@ const [general, detailed] = await Promise.all([
     (res) => res.json() as Promise<PackageDetailed>,
   ),
 ]);
+
+let readme = general.readme;
+
+if (!general.readme) {
+  // Get Readme from GitHub
+  if (general.repository.type !== "git") return;
+
+  const url = general.repository.url.replace("git+", "");
+  const repo = url.split("https://github.com/")[1].replace(".git", "");
+
+  const data = await fetch(`https://raw.githubusercontent.com/${repo}/main/README.md`).then((res) =>
+    res.text(),
+  );
+
+  readme = data;
+}
 ---
 
 <Layout title={pkg || "Unknow"}>
@@ -63,7 +79,7 @@ const [general, detailed] = await Promise.all([
           tab === "1" ? (
             <div
               class="rounded-lg bg-surface pb-3 pl-3 pr-3 pt-3"
-              set:html={marked.parse(general.readme)}
+              set:html={marked.parse(readme)}
             />
           ) : tab === "2" ? (
             <div class="grid grid-cols-6 rounded-lg bg-surface pb-3 pl-3 pr-3 pt-3">
