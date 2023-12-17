@@ -77,12 +77,9 @@ if (!general.readme) {
 
         {
           tab === "1" ? (
-            <div
-              class="rounded-lg bg-surface pb-3 pl-3 pr-3 pt-3"
-              set:html={marked.parse(readme)}
-            />
+            <div class="max-w-full rounded-lg bg-surface p-3" set:html={marked.parse(readme)} />
           ) : tab === "2" ? (
-            <div class="grid grid-cols-6 rounded-lg bg-surface pb-3 pl-3 pr-3 pt-3">
+            <div class="grid grid-cols-6 rounded-lg bg-surface p-3">
               {Object.keys(general.versions)
                 .reverse()
                 .map((key: string) => {
@@ -90,7 +87,7 @@ if (!general.readme) {
                 })}
             </div>
           ) : (
-            <div class="break-words rounded-lg bg-surface pb-3 pl-3 pr-3 pt-3">
+            <div class="break-words rounded-lg bg-surface p-3">
               <h1 class="text-lg font-bold">Dependecies</h1>
               <div>
                 {Object.keys(detailed.dependencies || {}).map((key) => {
@@ -180,7 +177,7 @@ if (!general.readme) {
   }
 
   pre code {
-    @apply inline-flex rounded bg-background p-3 font-code;
+    @apply inline-flex w-full overflow-x-scroll rounded bg-background p-1 font-code;
   }
 
   code {
