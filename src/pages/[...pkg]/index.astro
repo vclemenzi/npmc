@@ -1,5 +1,7 @@
 ---
-import { marked } from "marked";
+import { Marked } from "marked";
+import { markedHighlight } from "marked-highlight";
+import hljs from "highlight.js";
 import Layout from "../../layouts/Layout.astro";
 import type { PackageGeneral, PackageDetailed } from "../../types/Package.ts";
 
@@ -23,8 +25,8 @@ if (!general.readme) {
   // Get Readme from GitHub
   if (general.repository.type !== "git") return;
 
-  const url = general.repository.url.replace("git+", "");
-  const repo = url.split("https://github.com/")[1].replace(".git", "");
+  const url = general.repository.url.replace("git+", "").replace("ssh://git@", "");
+  const repo = url.split("github.com/")[1].replace(".git", "");
 
   const data = await fetch(`https://raw.githubusercontent.com/${repo}/main/README.md`).then((res) =>
     res.text(),
@@ -32,6 +34,16 @@ if (!general.readme) {
 
   readme = data;
 }
+
+const marked = new Marked(
+  markedHighlight({
+    langPrefix: "hljs language-",
+    highlight(code, lang) {
+      const language = hljs.getLanguage(lang) ? lang : "plaintext";
+      return hljs.highlight(code, { language }).value;
+    },
+  }),
+);
 ---
 
 <Layout title={pkg || "Unknow"} description={detailed.description}>
@@ -176,11 +188,57 @@ if (!general.readme) {
     @apply max-w-full rounded;
   }
 
+  pre {
+    @apply rounded bg-background p-2;
+  }
+
   pre code {
-    @apply inline-flex w-full overflow-x-scroll rounded bg-background p-1 font-code;
+    @apply w-full overflow-x-scroll font-code;
   }
 
   code {
-    @apply rounded bg-background p-1 text-sm;
+    @apply rounded bg-background text-sm;
+  }
+
+  /* Code Block */
+  pre code span {
+    @apply font-code;
+  }
+
+  .hljs-keyword {
+    @apply text-purple-400;
+  }
+
+  .hljs-built_in,
+  .hljs-title {
+    @apply text-blue-400;
+  }
+
+  .hljs-string {
+    @apply text-green-400;
+  }
+
+  .hljs-variable {
+    @apply text-white;
+  }
+
+  .hljs-params {
+    @apply text-red-400;
+  }
+
+  .hljs-property {
+    @apply text-blue-300;
+  }
+
+  .hljs-comment {
+    @apply text-opacity-95;
+  }
+
+  .hljs-name {
+    @apply text-orange-400;
+  }
+
+  .hljs-attr {
+    @apply text-sky-200;
   }
 </style>

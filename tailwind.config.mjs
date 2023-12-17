@@ -9,7 +9,7 @@ export default {
       }
     },
     fontFamily: {
-      'code': ["monospace", "Source Code Pro"]
+      'code': ["monospace", "JetBrains Mono"]
     }
   },
   plugins: [],
