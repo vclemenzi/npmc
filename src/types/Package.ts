@@ -1,5 +1,8 @@
 export interface PackageGeneral {
   readme: string;
+  versions: {
+    [key: string]: PackageDetailed;
+  }[];
 }
 
 export interface PackageDetailed {
@@ -8,6 +11,8 @@ export interface PackageDetailed {
   description: string;
   keywords?: string[];
   license?: string;
+  dependencies: { [key: string]: string };
+  devDependencies: { [key: string]: string };
   engines?: {
     node?: string;
   };

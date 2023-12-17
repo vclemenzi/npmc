@@ -8,6 +8,7 @@ interface Props {
 }
 
 const { pkg } = Astro.params;
+const tab = Astro.url.searchParams.get("tab") || "1";
 
 const [general, detailed] = await Promise.all([
   fetch(`https://registry.npmjs.com/${pkg}`).then((res) => res.json() as Promise<PackageGeneral>),
@@ -19,7 +20,7 @@ const [general, detailed] = await Promise.all([
 
 <Layout title={pkg || "Unknow"}>
   <main class="w-full overflow-x-hidden">
-    <div class="bg-surface rounded-lg p-5 pr-8 md:pl-8">
+    <div class="rounded-lg bg-surface p-5 pr-8 md:pl-8">
       <div class="bg-surface text-2xl font-semibold">
         {detailed.name}
         <span class="rounded bg-green-600 p-1 pl-2 pr-2 text-xl">{detailed.version}</span>
@@ -43,47 +44,96 @@ const [general, detailed] = await Promise.all([
     <br />
 
     <div class="space-y-3 md:flex md:space-x-3">
-      <div class="md:w-3/4">
-        <div class="bg-surface rounded-lg p-2 pl-4 pr-4" set:html={marked.parse(general.readme)} />
+      <div class="space-y-3 md:w-3/4">
+        <div class="flex items-center space-x-3 rounded-lg bg-surface p-3">
+          <a href={`/${pkg}`} class={`font-bold ${tab === "1" ? "text-red-400" : "text-white"}`}
+            >Readme</a
+          >
+          <a
+            href={`/${pkg}?tab=2`}
+            class={`font-bold ${tab === "2" ? "text-red-400" : "text-white"}`}>Version</a
+          >
+          <a
+            href={`/${pkg}?tab=3`}
+            class={`font-bold ${tab === "3" ? "text-red-400" : "text-white"}`}>Dependencies</a
+          >
+        </div>
+
+        {
+          tab === "1" ? (
+            <div
+              class="rounded-lg bg-surface pb-3 pl-3 pr-3 pt-3"
+              set:html={marked.parse(general.readme)}
+            />
+          ) : tab === "2" ? (
+            <div class="grid grid-cols-6 rounded-lg bg-surface pb-3 pl-3 pr-3 pt-3">
+              {Object.keys(general.versions)
+                .reverse()
+                .map((key: string) => {
+                  return <span class="p-1 text-lg">{key}</span>;
+                })}
+            </div>
+          ) : (
+            <div class="break-words rounded-lg bg-surface pb-3 pl-3 pr-3 pt-3">
+              <h1 class="text-lg font-bold">Dependecies</h1>
+              <div>
+                {Object.keys(detailed.dependencies || {}).map((key) => {
+                  return <span class="p-1 text-lg">{key}</span>;
+                })}
+              </div>
+
+              <h1 class="text-lg font-bold">Dev dependecies</h1>
+              <div>
+                {Object.keys(detailed.devDependencies || {}).map((key) => {
+                  return <span class="p-1 text-lg">{key}</span>;
+                }) || "No dev dependencies"}
+              </div>
+            </div>
+          )
+        }
       </div>
 
-      <div class="bg-surface rounded-lg pb-2 pl-4 pr-4 pt-2 md:w-1/4">
-        <h3>Install</h3>
-        <code class="bg-background rounded-lg border p-2 pl-5 pr-5">
-          npm i {detailed.name}
-        </code>
-
-        <h3>Metadata</h3>
-        <ul class="list-disc pl-5">
-          <li>
-            License: {detailed.license || "Unknow"}
-          </li>
-
-          <li>
-            Node: {detailed.engines ? detailed.engines.node || "Whatever" : "Whatever"}
-          </li>
-
-          <li>
-            Author: {detailed.author?.name || "Unknow"}
-          </li>
-        </ul>
-
-        <h3>Maintainers</h3>
+      <div class="rounded-lg bg-surface pb-2 pl-4 pr-4 pt-2 md:w-1/4">
         <div>
-          {
-            detailed.maintainers
-              ? detailed.maintainers.map((user) => {
-                  return (
-                    <div>
-                      <>
-                        <span>{user.name}</span>
-                        <br />
-                      </>
-                    </div>
-                  );
-                })
-              : detailed.author?.name
-          }
+          <h2>Install</h2>
+          <code class="rounded-lg border bg-background p-2 pl-5 pr-5">
+            npm i {detailed.name}
+          </code>
+        </div>
+        <div>
+          <h2>Metadata</h2>
+          <ul class="list-disc pl-5">
+            <li>
+              License: {detailed.license || "Unknow"}
+            </li>
+
+            <li>
+              Node: {detailed.engines ? detailed.engines.node || "Whatever" : "Whatever"}
+            </li>
+
+            <li>
+              Author: {detailed.author?.name || "Unknow"}
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h2>Maintainers</h2>
+          <div>
+            {
+              detailed.maintainers
+                ? detailed.maintainers.map((user) => {
+                    return (
+                      <div>
+                        <>
+                          <span>{user.name}</span>
+                          <br />
+                        </>
+                      </div>
+                    );
+                  })
+                : detailed.author?.name
+            }
+          </div>
         </div>
       </div>
     </div>
@@ -92,18 +142,18 @@ const [general, detailed] = await Promise.all([
 
 <style is:global>
   a {
-    @apply font-bold text-blue-600 no-underline hover:underline;
+    @apply text-blue-600 no-underline hover:underline;
   }
 
   img {
-    @apply rounded;
+    @apply max-w-full rounded;
   }
 
   pre code {
-    @apply font-code bg-background inline-flex rounded p-3;
+    @apply inline-flex rounded bg-background p-3 font-code;
   }
 
   code {
-    @apply bg-background rounded p-1 text-sm;
+    @apply rounded bg-background p-1 text-sm;
   }
 </style>
