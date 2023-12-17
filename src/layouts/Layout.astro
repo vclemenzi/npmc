@@ -1,9 +1,11 @@
 ---
 interface Props {
   title: string;
+  description?: string;
+  img?: string;
 }
 
-const { title } = Astro.props;
+const { title, description, img } = Astro.props;
 
 const path = Astro.url.pathname;
 ---
@@ -13,6 +15,8 @@ const path = Astro.url.pathname;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description || "Explore over +1M packages"} />
+    {img ? <meta property="og:image" content={img} /> : ""}
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <title>{title}</title>
   </head>
@@ -31,7 +35,7 @@ const path = Astro.url.pathname;
               <input
                 name="q"
                 placeholder="React, Vue, Astro..."
-                class="bg-surface w-80 rounded-full border-none p-2 pl-4 pr-4 text-lg text-white focus:outline-none"
+                class="w-80 rounded-full border-none bg-surface p-2 pl-4 pr-4 text-lg text-white focus:outline-none"
               />
             </form>
           </div>
