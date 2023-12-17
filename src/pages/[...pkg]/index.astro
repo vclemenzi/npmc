@@ -50,8 +50,21 @@ const marked = new Marked(
   <main class="w-full overflow-x-hidden">
     <div class="rounded-lg bg-surface p-5 pr-8 md:pl-8">
       <div class="bg-surface text-2xl font-semibold">
-        {detailed.name}
-        <span class="rounded bg-green-600 p-1 pl-2 pr-2 text-xl">{detailed.version}</span>
+        <div class="flex justify-between">
+          <div>
+            {detailed.name}
+            <span class="rounded bg-green-600 p-1 pl-2 pr-2 text-xl">{detailed.version}</span>
+          </div>
+
+          <div>
+            <a
+              href={`https://npm.runkit.com/${detailed.name}`}
+              class="flex items-center text-sm text-white"
+            >
+              Try on RunKit
+            </a>
+          </div>
+        </div>
       </div>
 
       <p class="bg-surface text-lg">
@@ -176,69 +189,69 @@ const marked = new Marked(
         </div>
       </div>
     </div>
+
+    <style is:global>
+      a {
+        @apply text-blue-600 no-underline hover:underline;
+      }
+
+      img {
+        @apply max-w-full rounded;
+      }
+
+      pre {
+        @apply rounded bg-background p-2;
+      }
+
+      pre code {
+        @apply w-full overflow-x-scroll font-code;
+      }
+
+      code {
+        @apply rounded bg-background text-sm;
+      }
+
+      /* Code Block */
+      pre code span {
+        @apply font-code;
+      }
+
+      .hljs-keyword {
+        @apply text-purple-400;
+      }
+
+      .hljs-built_in,
+      .hljs-title {
+        @apply text-blue-400;
+      }
+
+      .hljs-string {
+        @apply text-green-400;
+      }
+
+      .hljs-variable {
+        @apply text-white;
+      }
+
+      .hljs-params {
+        @apply text-red-400;
+      }
+
+      .hljs-property {
+        @apply text-blue-300;
+      }
+
+      .hljs-comment {
+        @apply text-opacity-95;
+      }
+
+      .hljs-name {
+        @apply text-orange-400;
+      }
+
+      .hljs-attr {
+        @apply text-sky-200;
+      }
+    </style>
   </main>
 </Layout>
-
-<style is:global>
-  a {
-    @apply text-blue-600 no-underline hover:underline;
-  }
-
-  img {
-    @apply max-w-full rounded;
-  }
-
-  pre {
-    @apply rounded bg-background p-2;
-  }
-
-  pre code {
-    @apply w-full overflow-x-scroll font-code;
-  }
-
-  code {
-    @apply rounded bg-background text-sm;
-  }
-
-  /* Code Block */
-  pre code span {
-    @apply font-code;
-  }
-
-  .hljs-keyword {
-    @apply text-purple-400;
-  }
-
-  .hljs-built_in,
-  .hljs-title {
-    @apply text-blue-400;
-  }
-
-  .hljs-string {
-    @apply text-green-400;
-  }
-
-  .hljs-variable {
-    @apply text-white;
-  }
-
-  .hljs-params {
-    @apply text-red-400;
-  }
-
-  .hljs-property {
-    @apply text-blue-300;
-  }
-
-  .hljs-comment {
-    @apply text-opacity-95;
-  }
-
-  .hljs-name {
-    @apply text-orange-400;
-  }
-
-  .hljs-attr {
-    @apply text-sky-200;
-  }
-</style>
