@@ -43,9 +43,9 @@ $("section.ef4d7c63").each(function () {
 ---
 
 <Layout
-  title={name}
+  title={name || user}
   img={`https://www.npmjs.com${avatar}`}
-  description={`${name} on npm | ${packages.length} packages`}
+  description={`${name || user} on npm | ${packages.length} packages`}
 >
   <div class="space-y-3 md:flex">
     <div class="text-center md:w-1/3">
