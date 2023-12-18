@@ -21,7 +21,7 @@ let version = "latest";
 const list = pkg?.split("/") as string[];
 
 list.forEach((e) => {
-  if (/^v\d+/.test(e)) {
+  if (/^v\d+./.test(e)) {
     version = e.substring(1);
   }
 });
