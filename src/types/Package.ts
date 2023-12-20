@@ -54,3 +54,11 @@ export interface PackageSearch {
     email: string;
   }[];
 }
+
+export interface PackageDonwloads {
+  package: string;
+  downloads: {
+    day: string;
+    downloads: number;
+  }[];
+}
