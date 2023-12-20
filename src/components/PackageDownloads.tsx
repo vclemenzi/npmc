@@ -21,7 +21,7 @@ export default ({ name }: Props) => {
         downloads ? (
           <Line
             data={{
-              labels: downloads.downloads.map((entry) => entry.day),
+              labels: downloads.downloads.map((entry) => { return entry.day.replaceAll("-", '/'); }),
               datasets: [
                 {
                   label: `Downloads for ${downloads.package} last week`,
