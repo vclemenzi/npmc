@@ -12,7 +12,7 @@ const results = await fetch(`https://registry.npmjs.com/-/v1/search?text=${q}`).
 );
 ---
 
-<Layout title={`${q} on NPM`}>
+<Layout title={`${results.objects.length} results for "${q}" on npm`}>
   <div class="flex flex-col gap-4 p-3">
     {
       results.objects.map((data) => {
