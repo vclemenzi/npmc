@@ -55,7 +55,7 @@ export interface PackageSearch {
   }[];
 }
 
-export interface PackageDonwloads {
+export interface PackageDownloads {
   package: string;
   downloads: {
     day: string;

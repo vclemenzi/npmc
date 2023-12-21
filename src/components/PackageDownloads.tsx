@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
-import type { PackageDonwloads } from '../types/Package';
+import type { PackageDownloads } from '../types/Package';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,12 +21,12 @@ interface Props {
 }
 
 export default ({ name }: Props) => {
-  const [downloads, setDownloads] = useState<PackageDonwloads>();
+  const [downloads, setDownloads] = useState<PackageDownloads>();
 
   useEffect(() => {
     fetch(`https://api.npmjs.org/downloads/range/last-week/${name}`)
-      .then((res) => res.json() as Promise<PackageDonwloads>)
-      .then((response: PackageDonwloads) => setDownloads(response));
+      .then((res) => res.json() as Promise<PackageDownloads>)
+      .then((response: PackageDownloads) => setDownloads(response));
   }, [name]);
 
   return (

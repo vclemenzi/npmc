@@ -1,0 +1,43 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { PackageDownloads } from "../../types/Package";
+
+interface Props {
+  pkg: string;
+}
+
+const { pkg } = Astro.params;
+
+const data = await fetch(`https://api.npmjs.org/downloads/range/last-week/${pkg}`).then(
+  (res) => res.json() as Promise<PackageDownloads>,
+);
+---
+
+<Layout title="Downloads">
+  <div>
+    <h1 class="rounded-2xl bg-surface p-4 text-center">
+      <span class="rounded-xl bg-background p-1 pl-2 pr-2">{data.package}</span> has <span
+        class="rounded-xl bg-purple-600 p-1 pl-2 pr-2"
+        >{data.downloads.reduce((acc, curr) => acc + curr.downloads, 0)}</span
+      > downloads in the last week
+    </h1>
+
+    <div class="rounded-2xl bg-surface p-5">
+      {
+        data.downloads.map((week) => (
+          <>
+            <div class="pb-2">
+              <span class="text-2xl/10">
+                <span class="rounded-xl bg-purple-600 p-1 pl-2 pr-2">{week.downloads}</span>{" "}
+                downloads on{" "}
+                <span class="rounded-xl bg-background p-1 pl-2 pr-2">
+                  {new Date(week.day).toLocaleDateString()}
+                </span>
+              </span>
+            </div>
+          </>
+        ))
+      }
+    </div>
+  </div>
+</Layout>

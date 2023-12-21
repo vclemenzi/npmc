@@ -164,6 +164,9 @@ if (!general.readme) {
         <div>
           <h2>Downloads</h2>
           <PackageDownloads client:only name={detailed.name} />
+          <noscript>
+            <a href={`/${pkg}/downloads`}>Downloads Tab Here</a>
+          </noscript>
         </div>
         <div>
           <h2>Maintainers</h2>
