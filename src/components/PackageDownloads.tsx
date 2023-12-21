@@ -1,6 +1,20 @@
 import { useState, useEffect } from 'react';
 import { Line } from 'react-chartjs-2';
 import type { PackageDonwloads } from '../types/Package';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+} from 'chart.js'
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+)
 
 interface Props {
   name: string;
@@ -21,7 +35,9 @@ export default ({ name }: Props) => {
         downloads ? (
           <Line
             data={{
-              labels: downloads.downloads.map((entry) => { return entry.day.replaceAll("-", '/'); }),
+              labels: downloads.downloads.map((entry) => {
+                return entry.day.replaceAll("-", "/");
+              }),
               datasets: [
                 {
                   label: `Downloads for ${downloads.package} last week`,
@@ -31,23 +47,6 @@ export default ({ name }: Props) => {
                   borderWidth: 2
                 }
               ]
-            }}
-            options={{
-              plugins: {
-                title: {
-                  display: false,
-                }
-              },
-              scales: {
-                x: {
-                  type: 'category',
-                },
-                y: {
-                  title: {
-                    display: false,
-                  }
-                }
-              }
             }}
           />
         ) : (
