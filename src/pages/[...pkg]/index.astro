@@ -35,6 +35,8 @@ const [general, detailed] = await Promise.all([
   ),
 ]);
 
+if (general.error) return Astro.redirect("/-/404");
+
 let readme = general.readme;
 
 // Get Readme from GitHub

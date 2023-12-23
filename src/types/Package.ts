@@ -1,5 +1,6 @@
 export interface PackageGeneral {
   readme: string;
+  error: string;
   versions: {
     [key: string]: PackageDetailed;
   }[];
