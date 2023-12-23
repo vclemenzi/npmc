@@ -1,0 +1,95 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import type { Registry } from "../../types/Registry";
+
+const [registry, year, month, week, day] = await Promise.all([
+  fetch("https://registry.npmjs.org/").then((res) => res.json() as Promise<Registry>),
+  fetch("https://api.npmjs.org/downloads/point/last-year/").then(
+    (res) => res.json() as Promise<{ downloads: number }>,
+  ),
+  fetch("https://api.npmjs.org/downloads/point/last-month/").then(
+    (res) => res.json() as Promise<{ downloads: number }>,
+  ),
+  fetch("https://api.npmjs.org/downloads/point/last-week/").then(
+    (res) => res.json() as Promise<{ downloads: number }>,
+  ),
+  fetch("https://api.npmjs.org/downloads/point/last-day/").then(
+    (res) => res.json() as Promise<{ downloads: number }>,
+  ),
+]);
+---
+
+<Layout title="Stats">
+  <div class="pl-2 pr-2 md:flex md:space-x-4 md:pb-3">
+    <div class="mb-4 rounded-2xl bg-surface p-5 md:w-1/2">
+      {/* General */}
+      <div class="grid grid-cols-1 gap-2 text-xl">
+        <span>
+          Database: {registry.db_name}
+        </span>
+        <span>
+          Documents: {registry.doc_count}
+        </span>
+        <span>
+          Deleted Documents: {registry.doc_del_count}
+        </span>
+        <span>
+          Update Sequence: {registry.update_seq}
+        </span>
+      </div>
+    </div>
+    <div class="mb-4 rounded-2xl bg-surface p-5 md:w-1/2">
+      {/* Size */}
+      <div class="grid grid-cols-1 gap-2 text-xl">
+        <span>
+          Disk Size: {registry.disk_size.toLocaleString()} bytes
+        </span>
+        <span>
+          Active Size: {registry.sizes.active.toLocaleString()} bytes
+        </span>
+        <span>
+          External Size: {registry.sizes.external.toLocaleString()} bytes
+        </span>
+        <span>
+          File Size: {registry.sizes.file.toLocaleString()} bytes
+        </span>
+      </div>
+    </div>
+  </div>
+  <div class="pl-2 pr-2 md:flex md:space-x-4">
+    <div class="mb-4 rounded-2xl bg-surface p-5 md:w-1/2">
+      {/* Downloads */}
+      <div class="grid grid-cols-1 gap-2 text-xl">
+        <span>
+          Downloads (Year): {year.downloads.toLocaleString()}
+        </span>
+        <span>
+          Downloads (Month): {month.downloads.toLocaleString()}
+        </span>
+        <span>
+          Downloads (Week): {week.downloads.toLocaleString()}
+        </span>
+        <span>
+          Downloads (Day): {day.downloads.toLocaleString()}
+        </span>
+      </div>
+    </div>
+    <div class="rounded-2xl bg-surface p-5 md:w-1/2">
+      {/* Misc */}
+      <div class="grid grid-cols-1 gap-2 text-xl">
+        <span>
+          Last Seq: {registry.update_seq}
+        </span>
+        <span>
+          Purge Seq: {registry.purge_seq}
+        </span>
+        <span>
+          Compact Running: {registry.compact_running ? "Yes" : "No"}
+        </span>
+        <span>
+          Disk Format Version: {registry.disk_format_version}
+        </span>
+      </div>
+    </div>
+  </div>
+</Layout>
