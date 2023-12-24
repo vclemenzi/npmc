@@ -20,10 +20,12 @@ const { name, version, description, keywords } = Astro.props;
 
     <div class="space-x-2 mt-2 break-words">
       {
-        keywords ? keywords.map((keyword: string) => {
+        keywords ? keywords.map((keyword: string, i: number) => {
+          if (i > 8) return <></>;
           return <span class="text-lg/8 bg-purple-400 p-1 rounded-lg pl-2 pr-2 text-background">{keyword}</span>;
         }) : <></>
       }
+      {keywords ? keywords.length > 8 ? <span class="text-lg/8">and {keywords.length - 8} more...</span> : <></> : <></>}
     </div>
   </div>
 </div>
