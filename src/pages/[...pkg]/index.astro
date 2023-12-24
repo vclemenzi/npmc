@@ -36,7 +36,7 @@ const [general, detailed] = await Promise.all([
   ),
 ]);
 
-if (general.error) return await error(`${Astro.url.origin}/-/404?p=${pkg}`, 404);
+if (general.error) return await error(404);
 
 let readme = general.readme;
 

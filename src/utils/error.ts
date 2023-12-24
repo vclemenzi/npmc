@@ -1,8 +1,5 @@
-const error = async (url: string, status: number) => {
-  const res = await fetch(url);
-
-  return new Response(res.body, {
-    headers: res.headers,
+const error = async (status: number) => {
+  return new Response("Error", {
     status,
   });
 }
