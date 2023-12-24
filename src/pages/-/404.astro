@@ -1,16 +1,13 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+
+const p = Astro.url.searchParams.get("p");
 ---
 
 <Layout title="Not Found">
   <div class="text-center md:pt-10">
-    <h1>There are over 1M packages in npm</h1>
-    <h1>but this one doesn't exist</h1>
-
-    <p class="mt-10">
-      <a href="/" class="rounded-xl bg-purple-400 p-2 pl-4 pr-4 text-lg font-bold no-underline">
-        Go back home
-      </a>
-    </p>
+    <h1>
+      The package <span>{p}</span> dosn't exists!
+    </h1>
   </div>
 </Layout>

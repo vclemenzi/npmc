@@ -7,6 +7,7 @@ import IconUser from "../../components/icons/User.astro";
 import IconNode from "../../components/icons/Node.astro";
 import type { PackageGeneral, PackageDetailed } from "../../types/Package.ts";
 import { md } from "../../utils/markdown.ts";
+import { error } from "../../utils/error.ts";
 
 interface Props {
   pkg: string;
@@ -35,7 +36,7 @@ const [general, detailed] = await Promise.all([
   ),
 ]);
 
-if (general.error) return Astro.redirect(`${Astro.url.origin}/-/404`);
+if (general.error) return await error(`${Astro.url.origin}/-/404?p=${pkg}`, 404);
 
 let readme = general.readme;
 
