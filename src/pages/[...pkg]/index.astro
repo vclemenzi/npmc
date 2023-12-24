@@ -35,7 +35,7 @@ const [general, detailed] = await Promise.all([
   ),
 ]);
 
-if (general.error) return Astro.redirect("/-/404");
+if (general.error) return Astro.redirect(`${Astro.url.origin}/-/404`);
 
 let readme = general.readme;
 
@@ -109,16 +109,30 @@ if (!general.readme) {
           ) : (
             <div class="break-words rounded-b-2xl bg-surface p-3">
               <h1 class="text-lg font-bold">Dependencies</h1>
-              <div>
+              <div class="text-lg/8">
                 {Object.keys(detailed.dependencies || {}).map((key) => {
-                  return <span class="rounded-lg bg-background p-1 pl-2 pr-2 text-lg">{key}</span>;
+                  return (
+                    <a
+                      href={`/${key}`}
+                      class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
+                    >
+                      {key}
+                    </a>
+                  );
                 })}
               </div>
 
               <h1 class="text-lg font-bold">Dev dependencies</h1>
-              <div class="space-x-2">
+              <div class="space-x-2 text-lg/8">
                 {Object.keys(detailed.devDependencies || {}).map((key) => {
-                  return <span class="rounded-lg bg-background p-1 pl-2 pr-2 text-lg">{key}</span>;
+                  return (
+                    <a
+                      href={`/${key}`}
+                      class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
+                    >
+                      {key}
+                    </a>
+                  );
                 }) || "No dev dependencies"}
               </div>
             </div>
