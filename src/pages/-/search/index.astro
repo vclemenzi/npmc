@@ -12,18 +12,27 @@ const results = await fetch(`https://registry.npmjs.com/-/v1/search?text=${q}`).
 );
 ---
 
-<Layout title={`${results.objects.length} results for "${q}" on npm`}>
+<Layout
+  title={`Search results for "${q}"`}
+  description={`${results.objects.length} results for "${q}" on npm`}
+>
   <div class="flex flex-col gap-4 p-3">
     {
-      results.objects.map((data) => {
-        const pkg = data.package;
+      results.objects.length ? (
+        results.objects.map((data) => {
+          const pkg = data.package;
 
-        return (
-          <a class="text-white no-underline" href={`/${pkg.name}`}>
-            <PackageCard {...pkg} />
-          </a>
-        );
-      })
+          return (
+            <a class="text-white no-underline" href={`/${pkg.name}`}>
+              <PackageCard {...pkg} />
+            </a>
+          );
+        })
+      ) : (
+        <div class="flex flex-col items-center justify-center gap-2 text-white">
+          <h1 class="text-2xl font-bold">No results found for "{q}"</h1>
+        </div>
+      )
     }
   </div>
 </Layout>
