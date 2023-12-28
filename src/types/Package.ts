@@ -8,6 +8,9 @@ export interface PackageGeneral {
     type: string;
     url: string;
   };
+  time: {
+    [key: string]: string;
+  }
 }
 
 export interface PackageDetailed {

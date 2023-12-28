@@ -1,0 +1,52 @@
+---
+import IconUser from "../icons/User.astro";
+import IconNode from "../icons/Node.astro";
+import IconLicense from "../icons/License.astro";
+import IconPublished from "../icons/Published.astro";
+import type { PackageDetailed, PackageGeneral } from "../../types/Package";
+
+interface Props {
+  detailed: PackageDetailed;
+  general: PackageGeneral;
+}
+
+const { detailed, general } = Astro.props;
+---
+
+<div>
+  <h2>Metadata</h2>
+  <ul class="space-y-2 pl-2">
+    <li class="flex items-center space-x-2">
+      <IconLicense />
+      <a
+        href={`https://directory.fsf.org/wiki/License:${detailed.license || "Unknown"}`}
+        class="text-white no-underline"
+      >
+        <span class="rounded-lg bg-background p-1 pl-2 pr-2">
+          {detailed.license || "Unknown"}
+        </span>
+      </a>
+    </li>
+
+    <li class="flex items-center space-x-2">
+      <IconNode />
+      <span class="rounded-lg bg-background p-1 pl-2 pr-2">
+        {detailed.engines ? detailed.engines.node || "Whatever" : "Whatever"}
+      </span>
+    </li>
+
+    <li class="flex items-center space-x-2">
+      <IconUser />
+      <span class="rounded-lg bg-background p-1 pl-2 pr-2">
+        {detailed.author?.name || "Unknown"}
+      </span>
+    </li>
+
+    <li class="flex items-center space-x-2">
+      <IconPublished />
+      <span class="rounded-lg bg-background p-1 pl-2 pr-2">
+        released {new Date(general.time[detailed.version]).toLocaleDateString()}
+      </span>
+    </li>
+  </ul>
+</div>

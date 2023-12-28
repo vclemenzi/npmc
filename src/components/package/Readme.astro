@@ -1,0 +1,28 @@
+---
+import type { PackageGeneral } from "../../types/Package";
+import { md } from "../../utils/markdown";
+
+interface Props {
+  general: PackageGeneral;
+}
+
+const { general } = Astro.props;
+
+let readme = general.readme;
+
+// Get Readme from GitHub
+if (!general.readme) {
+  if (general.repository?.type !== "git") return;
+
+  const url = general.repository.url.replace("git+", "").replace("ssh://git@", "");
+  const repo = url.split("github.com/")[1].replace(".git", "");
+
+  const data = await fetch(`https://raw.githubusercontent.com/${repo}/main/README.md`).then((res) =>
+    res.text(),
+  );
+
+  readme = data;
+}
+---
+
+<div class="max-w-full rounded-b-2xl bg-surface p-3" set:html={md.parse(readme)} />

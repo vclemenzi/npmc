@@ -2,12 +2,11 @@
 import Layout from "../../layouts/Layout.astro";
 import PackageCard from "../../components/PackageCard.astro";
 import PackageDownloads from "../../components/PackageDownloads.tsx";
-import IconLicense from "../../components/icons/License.astro";
-import IconUser from "../../components/icons/User.astro";
-import IconNode from "../../components/icons/Node.astro";
+import Metadata from "../../components/package/Metadata.astro";
+import Readme from "../../components/package/Readme.astro";
+import Versions from "../../components/package/Versions.astro";
+import Dependencies from "../../components/package/Dependencies.astro";
 import type { PackageGeneral, PackageDetailed } from "../../types/Package.ts";
-import { md } from "../../utils/markdown.ts";
-import { error } from "../../utils/error.ts";
 
 interface Props {
   pkg: string;
@@ -37,22 +36,6 @@ const [general, detailed] = await Promise.all([
 ]);
 
 if (general.error) return await error(404);
-
-let readme = general.readme;
-
-// Get Readme from GitHub
-if (!general.readme) {
-  if (general.repository?.type !== "git") return;
-
-  const url = general.repository.url.replace("git+", "").replace("ssh://git@", "");
-  const repo = url.split("github.com/")[1].replace(".git", "");
-
-  const data = await fetch(`https://raw.githubusercontent.com/${repo}/main/README.md`).then((res) =>
-    res.text(),
-  );
-
-  readme = data;
-}
 ---
 
 <Layout title={pkg || "Unknow"} description={detailed.description}>
@@ -73,70 +56,35 @@ if (!general.readme) {
             href={`/${pkg}`}
             class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
               tab === "1" ? "text-purple-400" : "text-white"
-            }`}>Readme</a
+            }`}
           >
+            Readme
+          </a>
           <a
             href={`/${pkg}?tab=2`}
             class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
               tab === "2" ? "text-purple-400" : "text-white"
-            }`}>Version</a
+            }`}
           >
+            Versions
+          </a>
           <a
             href={`/${pkg}?tab=3`}
             class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
               tab === "3" ? "text-purple-400" : "text-white"
-            }`}>Dependencies</a
+            }`}
           >
+            Dependencies
+          </a>
         </div>
 
         {
           tab === "1" ? (
-            <div class="max-w-full rounded-b-2xl bg-surface p-3" set:html={md.parse(readme)} />
+            <Readme {general} />
           ) : tab === "2" ? (
-            <div class="grid grid-cols-6 gap-4 rounded-b-2xl bg-surface p-3">
-              {Object.keys(general.versions)
-                .reverse()
-                .map((key: string) => {
-                  return (
-                    <a
-                      href={`/${detailed.name}/v${key}`}
-                      class="rounded-lg bg-background p-1 pl-2 pr-2 text-center text-lg text-white no-underline"
-                    >
-                      {key}
-                    </a>
-                  );
-                })}
-            </div>
+            <Versions {detailed} {general} />
           ) : (
-            <div class="break-words rounded-b-2xl bg-surface p-3">
-              <h1 class="text-lg font-bold">Dependencies</h1>
-              <div class="text-lg/8">
-                {Object.keys(detailed.dependencies || {}).map((key) => {
-                  return (
-                    <a
-                      href={`/${key}`}
-                      class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
-                    >
-                      {key}
-                    </a>
-                  );
-                })}
-              </div>
-
-              <h1 class="text-lg font-bold">Dev dependencies</h1>
-              <div class="space-x-2 text-lg/8">
-                {Object.keys(detailed.devDependencies || {}).map((key) => {
-                  return (
-                    <a
-                      href={`/${key}`}
-                      class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
-                    >
-                      {key}
-                    </a>
-                  );
-                }) || "No dev dependencies"}
-              </div>
-            </div>
+            <Dependencies {detailed} />
           )
         }
       </div>
@@ -148,36 +96,7 @@ if (!general.readme) {
             npm i {detailed.name}{version !== "latest" ? `@${version}` : ""}
           </code>
         </div>
-        <div>
-          <h2>Metadata</h2>
-          <ul class="space-y-2 pl-2">
-            <li class="flex items-center space-x-2">
-              <IconLicense />
-              <a
-                href={`https://directory.fsf.org/wiki/License:${detailed.license || "Unknown"}`}
-                class="text-white no-underline"
-              >
-                <span class="rounded-lg bg-background p-1 pl-2 pr-2">
-                  {detailed.license || "Unknown"}
-                </span>
-              </a>
-            </li>
-
-            <li class="flex items-center space-x-2">
-              <IconNode />
-              <span class="rounded-lg bg-background p-1 pl-2 pr-2">
-                {detailed.engines ? detailed.engines.node || "Whatever" : "Whatever"}
-              </span>
-            </li>
-
-            <li class="flex items-center space-x-2">
-              <IconUser />
-              <span class="rounded-lg bg-background p-1 pl-2 pr-2">
-                {detailed.author?.name || "Unknown"}
-              </span>
-            </li>
-          </ul>
-        </div>
+        <Metadata {detailed} {general} />
         <div>
           <h2>Downloads</h2>
           <PackageDownloads client:only name={detailed.name} />
@@ -220,69 +139,69 @@ if (!general.readme) {
         </div>
       </div>
     </div>
-
-    <style is:global>
-      a {
-        @apply text-blue-600 no-underline hover:underline;
-      }
-
-      img {
-        @apply max-w-full rounded;
-      }
-
-      pre {
-        @apply rounded bg-background p-2;
-      }
-
-      pre code {
-        @apply w-full overflow-x-scroll font-code;
-      }
-
-      code {
-        @apply rounded bg-background text-sm;
-      }
-
-      /* Code Block */
-      pre code span {
-        @apply font-code;
-      }
-
-      .hljs-keyword {
-        @apply text-purple-400;
-      }
-
-      .hljs-built_in,
-      .hljs-title {
-        @apply text-blue-400;
-      }
-
-      .hljs-string {
-        @apply text-green-400;
-      }
-
-      .hljs-variable {
-        @apply text-white;
-      }
-
-      .hljs-params {
-        @apply text-red-400;
-      }
-
-      .hljs-property {
-        @apply text-blue-300;
-      }
-
-      .hljs-comment {
-        @apply text-opacity-95;
-      }
-
-      .hljs-name {
-        @apply text-orange-400;
-      }
-
-      .hljs-attr {
-        @apply text-sky-200;
-      }
-    </style>
   </main>
 </Layout>
+
+<style is:global>
+  a {
+    @apply text-blue-600 no-underline hover:underline;
+  }
+
+  img {
+    @apply max-w-full rounded;
+  }
+
+  pre {
+    @apply rounded bg-background p-2;
+  }
+
+  pre code {
+    @apply w-full overflow-x-scroll font-code;
+  }
+
+  code {
+    @apply rounded bg-background text-sm;
+  }
+
+  /* Code Block */
+  pre code span {
+    @apply font-code;
+  }
+
+  .hljs-keyword {
+    @apply text-purple-400;
+  }
+
+  .hljs-built_in,
+  .hljs-title {
+    @apply text-blue-400;
+  }
+
+  .hljs-string {
+    @apply text-green-400;
+  }
+
+  .hljs-variable {
+    @apply text-white;
+  }
+
+  .hljs-params {
+    @apply text-red-400;
+  }
+
+  .hljs-property {
+    @apply text-blue-300;
+  }
+
+  .hljs-comment {
+    @apply text-opacity-95;
+  }
+
+  .hljs-name {
+    @apply text-orange-400;
+  }
+
+  .hljs-attr {
+    @apply text-sky-200;
+  }
+</style>

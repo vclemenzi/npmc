@@ -1,0 +1,27 @@
+---
+import type { PackageDetailed, PackageGeneral } from "../../types/Package";
+
+interface Props {
+  detailed: PackageDetailed;
+  general: PackageGeneral;
+}
+
+const { detailed, general } = Astro.props;
+---
+
+<div class="grid grid-cols-6 gap-4 rounded-b-2xl bg-surface p-3">
+  {
+    Object.keys(general.versions)
+      .reverse()
+      .map((key: string) => {
+        return (
+          <a
+            href={`/${detailed.name}/v${key}`}
+            class="rounded-lg bg-background p-1 pl-2 pr-2 text-center text-lg text-white no-underline"
+          >
+            {key}
+          </a>
+        );
+      })
+  }
+</div>

@@ -1,0 +1,43 @@
+---
+import { PackageDetailed, PackageGeneral } from "../../types/Package";
+
+interface Props {
+  detailed: PackageDetailed;
+}
+
+const { detailed } = Astro.props;
+---
+
+<div class="break-words rounded-b-2xl bg-surface p-3">
+  <h1 class="text-lg font-bold">Dependencies</h1>
+  <div class="text-lg/8">
+    {
+      Object.keys(detailed.dependencies || {}).map((key) => {
+        return (
+          <a
+            href={`/${key}`}
+            class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
+          >
+            {key}
+          </a>
+        );
+      })
+    }
+  </div>
+
+  <h1 class="text-lg font-bold">Dev dependencies</h1>
+  <div class="space-x-2 text-lg/8">
+    {
+      Object.keys(detailed.devDependencies || {}).map((key) => {
+        return (
+          <a
+            href={`/${key}`}
+            class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
+          >
+            {key}
+          </a>
+        );
+      }) || "No dev dependencies"
+    }
+  </div>
+</div>
