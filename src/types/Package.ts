@@ -30,6 +30,9 @@ export interface PackageDetailed {
   maintainers?: {
     name: string;
   }[];
+  scripts?: {
+    [key: string]: string;
+  }
 }
 
 export interface PackageSearch {

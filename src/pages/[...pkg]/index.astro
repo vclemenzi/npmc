@@ -7,6 +7,7 @@ import Readme from "../../components/package/Readme.astro";
 import Versions from "../../components/package/Versions.astro";
 import Dependencies from "../../components/package/Dependencies.astro";
 import Command from "../../components/package/Command.astro";
+import Scripts from "../../components/package/Scripts.astro";
 import type { PackageGeneral, PackageDetailed } from "../../types/Package.ts";
 
 interface Props {
@@ -52,7 +53,7 @@ if (general.error) return await error(404);
 
     <div class="space-y-3 md:flex md:space-x-3">
       <div class="md:w-3/4">
-        <div class="flex items-center space-x-3 rounded-t-2xl bg-surface p-3">
+        <div class="flex items-center space-x-3 rounded-t-2xl bg-surface p-3 overflow-x-scroll whitespace-nowrap">
           <a
             href={`/${pkg}`}
             class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
@@ -77,6 +78,15 @@ if (general.error) return await error(404);
           >
             Dependencies
           </a>
+
+          <a
+            href={`/${pkg}?tab=4`}
+            class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
+              tab === "4" ? "text-purple-400" : "text-white"
+            }`}
+          >
+            Scripts 
+          </a>
         </div>
 
         {
@@ -84,8 +94,10 @@ if (general.error) return await error(404);
             <Readme {general} />
           ) : tab === "2" ? (
             <Versions {detailed} {general} />
-          ) : (
+          ) : tab === "3" ? (
             <Dependencies {detailed} />
+          ) : (
+            <Scripts {detailed} />
           )
         }
       </div>

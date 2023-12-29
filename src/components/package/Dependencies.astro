@@ -9,10 +9,10 @@ const { detailed } = Astro.props;
 ---
 
 <div class="break-words rounded-b-2xl bg-surface p-3">
-  <h1 class="text-lg font-bold">Dependencies</h1>
+  <h1 class="text-lg font-bold">Dependencies ({Object.keys(detailed.dependencies || {}).length})</h1>
   <div class="text-lg/8">
     {
-      Object.keys(detailed.dependencies || {}).map((key) => {
+      detailed.dependencies ? Object.keys(detailed.dependencies || {}).map((key) => {
         return (
           <a
             href={`/${key}`}
@@ -21,14 +21,14 @@ const { detailed } = Astro.props;
             {key}
           </a>
         );
-      })
+      }) : "No dependencies"
     }
   </div>
 
-  <h1 class="text-lg font-bold">Dev dependencies</h1>
+  <h1 class="text-lg font-bold">Dev dependencies ({Object.keys(detailed.devDependencies || {}).length})</h1>
   <div class="space-x-2 text-lg/8">
     {
-      Object.keys(detailed.devDependencies || {}).map((key) => {
+      detailed.devDependencies ? Object.keys(detailed.devDependencies || {}).map((key) => {
         return (
           <a
             href={`/${key}`}
@@ -37,7 +37,7 @@ const { detailed } = Astro.props;
             {key}
           </a>
         );
-      }) || "No dev dependencies"
+      }) : "No dev dependencies found for this package"
     }
   </div>
 </div>
