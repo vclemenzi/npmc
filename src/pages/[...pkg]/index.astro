@@ -6,6 +6,7 @@ import Metadata from "../../components/package/Metadata.astro";
 import Readme from "../../components/package/Readme.astro";
 import Versions from "../../components/package/Versions.astro";
 import Dependencies from "../../components/package/Dependencies.astro";
+import Command from "../../components/package/Command.astro";
 import type { PackageGeneral, PackageDetailed } from "../../types/Package.ts";
 
 interface Props {
@@ -38,7 +39,7 @@ const [general, detailed] = await Promise.all([
 if (general.error) return await error(404);
 ---
 
-<Layout title={pkg || "Unknow"} description={detailed.description}>
+<Layout title={`${detailed.name}@${detailed.version}` || "Unknow"} description={detailed.description}>
   <main class="overflow-x-hidden p-3">
     <PackageCard
       name={detailed.name}
@@ -92,9 +93,7 @@ if (general.error) return await error(404);
       <div class="rounded-2xl bg-surface pb-2 pl-4 pr-4 pt-2 md:w-1/4">
         <div>
           <h2>Install</h2>
-          <code class="rounded-lg border bg-background p-2 pl-5 pr-5">
-            npm i {detailed.name}{version !== "latest" ? `@${version}` : ""}
-          </code>
+          <Command {detailed} />
         </div>
         <Metadata {detailed} {general} />
         <div>
