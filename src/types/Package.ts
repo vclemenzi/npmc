@@ -10,7 +10,7 @@ export interface PackageGeneral {
   };
   time: {
     [key: string]: string;
-  }
+  };
 }
 
 export interface PackageDetailed {
@@ -21,18 +21,23 @@ export interface PackageDetailed {
   license?: string;
   dependencies: { [key: string]: string };
   devDependencies: { [key: string]: string };
+  repository?: {
+    type: string;
+    url: string;
+  };
+  homepage?: string;
   engines?: {
     node?: string;
   };
   author?: {
-    name: string
+    name: string;
   };
   maintainers?: {
     name: string;
   }[];
   scripts?: {
     [key: string]: string;
-  }
+  };
 }
 
 export interface PackageSearch {

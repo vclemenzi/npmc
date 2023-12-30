@@ -8,14 +8,14 @@ interface Props {
 const { detailed } = Astro.props;
 ---
 
-<div class="bg-surface p-4 pt-1 rounded-b-lg">
+<div class="rounded-b-lg bg-surface p-4 pt-1">
   {
     detailed.scripts ? (
       Object.keys(detailed.scripts).map((script: string) => (
         <div>
           <h3>{script}</h3>
-          <code class="block overflow-x-auto p-2 rounded bg-background text-lg font-code whitespace-nowrap">
-            {detailed.scripts ? detailed.scripts[script] : ""} 
+          <code class="block overflow-x-auto whitespace-nowrap rounded bg-background p-2 font-code text-lg">
+            {detailed.scripts ? detailed.scripts[script] : ""}
           </code>
         </div>
       ))

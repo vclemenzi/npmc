@@ -9,35 +9,43 @@ const { detailed } = Astro.props;
 ---
 
 <div class="break-words rounded-b-2xl bg-surface p-3">
-  <h1 class="text-lg font-bold">Dependencies ({Object.keys(detailed.dependencies || {}).length})</h1>
+  <h1 class="text-lg font-bold">
+    Dependencies ({Object.keys(detailed.dependencies || {}).length})
+  </h1>
   <div class="text-lg/8">
     {
-      detailed.dependencies ? Object.keys(detailed.dependencies || {}).map((key) => {
-        return (
-          <a
-            href={`/${key}`}
-            class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
-          >
-            {key}
-          </a>
-        );
-      }) : "No dependencies"
+      detailed.dependencies
+        ? Object.keys(detailed.dependencies || {}).map((key) => {
+            return (
+              <a
+                href={`/${key}`}
+                class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
+              >
+                {key}
+              </a>
+            );
+          })
+        : "No dependencies"
     }
   </div>
 
-  <h1 class="text-lg font-bold">Dev dependencies ({Object.keys(detailed.devDependencies || {}).length})</h1>
+  <h1 class="text-lg font-bold">
+    Dev dependencies ({Object.keys(detailed.devDependencies || {}).length})
+  </h1>
   <div class="space-x-2 text-lg/8">
     {
-      detailed.devDependencies ? Object.keys(detailed.devDependencies || {}).map((key) => {
-        return (
-          <a
-            href={`/${key}`}
-            class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
-          >
-            {key}
-          </a>
-        );
-      }) : "No dev dependencies found for this package"
+      detailed.devDependencies
+        ? Object.keys(detailed.devDependencies || {}).map((key) => {
+            return (
+              <a
+                href={`/${key}`}
+                class="mr-1 rounded-lg bg-background p-1 pl-2 pr-2 text-white no-underline hover:underline"
+              >
+                {key}
+              </a>
+            );
+          })
+        : "No dev dependencies found for this package"
     }
   </div>
 </div>

@@ -10,4 +10,4 @@ export const GET: APIRoute = async ({ params }) => {
   const buf = await fetch(`https://www.npmjs.com${avatar}`);
 
   return new Response(await buf.arrayBuffer());
-}
+};

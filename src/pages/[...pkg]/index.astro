@@ -8,6 +8,7 @@ import Versions from "../../components/package/Versions.astro";
 import Dependencies from "../../components/package/Dependencies.astro";
 import Command from "../../components/package/Command.astro";
 import Scripts from "../../components/package/Scripts.astro";
+import External from "../../components/package/External.astro";
 import type { PackageGeneral, PackageDetailed } from "../../types/Package.ts";
 
 interface Props {
@@ -40,7 +41,10 @@ const [general, detailed] = await Promise.all([
 if (general.error) return await error(404);
 ---
 
-<Layout title={`${detailed.name}@${detailed.version}` || "Unknow"} description={detailed.description}>
+<Layout
+  title={`${detailed.name}@${detailed.version}` || "Unknow"}
+  description={detailed.description}
+>
   <main class="overflow-x-hidden p-3">
     <PackageCard
       name={detailed.name}
@@ -53,7 +57,9 @@ if (general.error) return await error(404);
 
     <div class="space-y-3 md:flex md:space-x-3">
       <div class="md:w-3/4">
-        <div class="flex items-center space-x-3 rounded-t-2xl bg-surface p-3 overflow-x-auto whitespace-nowrap">
+        <div
+          class="flex items-center space-x-3 overflow-x-auto whitespace-nowrap rounded-t-2xl bg-surface p-3"
+        >
           <a
             href={`/${pkg}`}
             class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
@@ -85,7 +91,7 @@ if (general.error) return await error(404);
               tab === "4" ? "text-purple-400" : "text-white"
             }`}
           >
-            Scripts 
+            Scripts
           </a>
         </div>
 
@@ -107,6 +113,7 @@ if (general.error) return await error(404);
           <h2>Install</h2>
           <Command {detailed} />
         </div>
+        <External {detailed} />
         <Metadata {detailed} {general} />
         <div>
           <h2>Downloads</h2>

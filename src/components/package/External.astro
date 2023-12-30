@@ -1,0 +1,46 @@
+---
+import type { PackageDetailed } from "../../types/Package";
+
+interface Props {
+  detailed: PackageDetailed;
+}
+
+const { detailed } = Astro.props;
+---
+
+<div>
+  <h2>Source Code</h2>
+  <a
+    href={detailed.repository?.url
+      ? detailed.repository?.url
+          .replace("git+", "")
+          .replace("git://", "https://")
+      : ""}
+    class="overflow-x-auto whitespace-nowrap rounded-lg bg-background p-2 text-white no-underline"
+  >
+    <span class="text-lg">
+      {
+        detailed.repository?.url
+          .replace("git+", "")
+          .replace("git://", "")
+          .substring(0, 30)
+      }{detailed.repository?.url ? (detailed.repository.url.length > 31 ? "..." : "") : ""}
+    </span>
+  </a>
+
+  <h2>Homepage</h2>
+  <a href={detailed.homepage} class="rounded-lg bg-background p-2 text-lg text-white no-underline">
+    <span>
+      {
+        detailed.homepage
+          ? detailed.homepage
+              .replace("https://", "")
+              .replace("http://", "")
+              .replace("://", "")
+              .replace("www.", "")
+              .substring(0, 30)
+          : "No Homepage"
+      }{detailed.homepage ? (detailed.homepage.length > 31 ? "..." : "") : ""}
+    </span>
+  </a>
+</div>

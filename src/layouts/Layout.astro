@@ -37,19 +37,24 @@ const query = Astro.url.searchParams.get("q") || "";
               <input
                 name="q"
                 placeholder="React, Vue, Astro..."
-                class="md:w-96 w-80 rounded-2xl border-0 bg-surface p-2 pl-4 pr-4 text-xl text-white focus:outline-none"
+                class="w-80 rounded-2xl border-0 bg-surface p-2 pl-4 pr-4 text-xl text-white focus:outline-none md:w-96"
                 value={query}
               />
             </form>
           </div>
 
           <div class="hidden md:block">
-            <a class="text-white no-underline bg-surface rounded-xl p-2 pl-3 pr-3" href="https://github.com/vclemenzi/npmc">
+            <a
+              class="rounded-xl bg-surface p-2 pl-3 pr-3 text-white no-underline"
+              href="https://github.com/vclemenzi/npmc"
+            >
               GitHub
             </a>
           </div>
         </nav>
-      ) : <></>
+      ) : (
+        ""
+      )
     }
     <slot />
   </body>
@@ -66,21 +71,21 @@ const query = Astro.url.searchParams.get("q") || "";
     @apply bg-background text-white;
   }
 
-  /* Custom scrollbar */ 
+  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 5px;
     height: 5px;
   }
 
   ::-webkit-scrollbar-track {
-    background: #0d0f14; 
+    background: #0d0f14;
   }
- 
+
   ::-webkit-scrollbar-thumb {
-    background: #20242D; 
+    background: #20242d;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #20242D; 
+    background: #20242d;
   }
 </style>
