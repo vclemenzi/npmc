@@ -8,7 +8,7 @@ interface Props {
 const { detailed } = Astro.props;
 ---
 
-<div class="bg-surface p-4 rounded-b-lg">
+<div class="bg-surface p-4 pt-1 rounded-b-lg">
   {
     detailed.scripts ? (
       Object.keys(detailed.scripts).map((script: string) => (

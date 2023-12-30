@@ -65,4 +65,22 @@ const query = Astro.url.searchParams.get("q") || "";
   body {
     @apply bg-background text-white;
   }
+
+  /* Custom scrollbar */ 
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #0d0f14; 
+  }
+ 
+  ::-webkit-scrollbar-thumb {
+    background: #20242D; 
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #20242D; 
+  }
 </style>
