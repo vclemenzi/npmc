@@ -12,7 +12,7 @@ const { detailed } = Astro.props;
   <h1 class="text-lg font-bold">
     Dependencies ({Object.keys(detailed.dependencies || {}).length})
   </h1>
-  <div class="text-lg/8">
+  <div class="text-lg/10">
     {
       detailed.dependencies
         ? Object.keys(detailed.dependencies || {}).map((key) => {
@@ -32,7 +32,7 @@ const { detailed } = Astro.props;
   <h1 class="text-lg font-bold">
     Dev dependencies ({Object.keys(detailed.devDependencies || {}).length})
   </h1>
-  <div class="space-x-2 text-lg/8">
+  <div class="space-x-2 text-lg/10">
     {
       detailed.devDependencies
         ? Object.keys(detailed.devDependencies || {}).map((key) => {

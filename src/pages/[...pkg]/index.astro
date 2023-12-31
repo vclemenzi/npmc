@@ -51,6 +51,7 @@ if (general.error) return await error(404);
       description={detailed.description}
       version={detailed.version}
       keywords={detailed.keywords || []}
+      types={detailed.types}
     />
 
     <br />
@@ -108,7 +109,7 @@ if (general.error) return await error(404);
         }
       </div>
 
-      <div class="rounded-2xl bg-surface pb-2 pl-4 pr-4 md:w-1/4">
+      <div class="rounded-2xl bg-surface pb-2 pl-4 pr-4 md:w-1/4 mt-3 md:mt-0">
         <div class="pt-5">
           <Command {detailed} {general} />
         </div>
@@ -173,11 +174,11 @@ if (general.error) return await error(404);
   }
 
   pre code {
-    @apply w-full overflow-x-auto font-code whitespace-pre-wrap;
+    @apply w-full overflow-x-auto whitespace-pre-wrap font-code text-sm/6;
   }
 
   code {
-    @apply rounded bg-background text-sm p-1;
+    @apply rounded bg-background p-1 text-sm;
   }
 
   /* Code Block */

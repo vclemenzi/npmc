@@ -21,6 +21,7 @@ export interface PackageDetailed {
   license?: string;
   dependencies: { [key: string]: string };
   devDependencies: { [key: string]: string };
+  types?: string;
   repository?: {
     type: string;
     url: string;

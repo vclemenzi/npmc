@@ -25,7 +25,7 @@ const query = Astro.url.searchParams.get("q") || "";
   <body>
     {
       path !== "/" ? (
-        <nav class="flex items-center justify-between p-1 pb-4 pl-4 pr-4">
+        <nav class="md:flex md:items-center text-center md:justify-between md:p-1 pb-4 md:pl-4 md:pr-4">
           <div class="hidden md:block">
             <a class="text-xl text-white no-underline" href="/">
               NPMC
@@ -36,7 +36,7 @@ const query = Astro.url.searchParams.get("q") || "";
             <form method="get" action="/-/search">
               <input
                 name="q"
-                placeholder="React, Vue, Astro..."
+                placeholder="Search on npm..."
                 class="w-80 rounded-2xl border-0 bg-surface p-2 pl-4 pr-4 text-xl text-white focus:outline-none md:w-96"
                 value={query}
               />
@@ -61,7 +61,7 @@ const query = Astro.url.searchParams.get("q") || "";
 </html>
 
 <style is:global>
-  @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+  @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&family=Roboto&display=swap");
 
   * {
     font-family: "Roboto", sans-serif;

@@ -1,12 +1,15 @@
 ---
+import IconTypescript from "./icons/Typescript.astro";
+
 interface Props {
   name: string;
   version: string;
   description: string;
   keywords?: string[];
+  types?: string;
 }
 
-const { name, version, description, keywords } = Astro.props;
+const { name, version, description, keywords, types } = Astro.props;
 ---
 
 <div class="rounded-2xl bg-surface p-3 pl-5 pr-5">
@@ -14,6 +17,7 @@ const { name, version, description, keywords } = Astro.props;
     <div class="flex items-center space-x-2">
       <h1 class="text-2xl">{name}</h1>
       <span class="rounded-xl bg-background p-1 pl-3 pr-3 text-xl">v{version}</span>
+      <span class="text-[#2d79c7]">{types ? <IconTypescript /> : ""}</span>
     </div>
 
     <span class="text-lg">{description}</span>
