@@ -1,15 +1,16 @@
 ---
-import type { PackageDetailed } from "../../types/Package";
+import type { PackageDetailed, PackageGeneral } from "../../types/Package";
 
 interface Props {
   detailed: PackageDetailed;
+  general: PackageGeneral;
 }
 
-const { detailed } = Astro.props;
+const { detailed, general } = Astro.props;
 ---
 
 <div
   class="overflow-x-auto whitespace-nowrap rounded-lg border bg-background p-2 pl-5 pr-5 text-center font-code text-lg"
 >
-  npm i {detailed.name}@{detailed.version}
+  npm i {detailed.name}{Object.keys(general.versions).at(-1) === detailed.version ? "" : `@${detailed.version}`}
 </div>

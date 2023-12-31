@@ -55,7 +55,7 @@ if (general.error) return await error(404);
 
     <br />
 
-    <div class="space-y-3 md:flex md:space-x-3">
+    <div class="md:flex md:space-x-3">
       <div class="md:w-3/4">
         <div
           class="flex items-center space-x-3 overflow-x-auto whitespace-nowrap rounded-t-2xl bg-surface p-3"
@@ -108,10 +108,9 @@ if (general.error) return await error(404);
         }
       </div>
 
-      <div class="rounded-2xl bg-surface pb-2 pl-4 pr-4 pt-2 md:w-1/4">
-        <div>
-          <h2>Install</h2>
-          <Command {detailed} />
+      <div class="rounded-2xl bg-surface pb-2 pl-4 pr-4 md:w-1/4">
+        <div class="pt-5">
+          <Command {detailed} {general} />
         </div>
         <External {detailed} />
         <Metadata {detailed} {general} />
@@ -174,11 +173,11 @@ if (general.error) return await error(404);
   }
 
   pre code {
-    @apply w-full overflow-x-scroll font-code;
+    @apply w-full overflow-x-auto font-code whitespace-pre-wrap;
   }
 
   code {
-    @apply rounded bg-background text-sm;
+    @apply rounded bg-background text-sm p-1;
   }
 
   /* Code Block */
