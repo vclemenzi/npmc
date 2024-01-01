@@ -1,7 +1,5 @@
-const error = async (status: number) => {
+export default async (status: number) => {
   return new Response("Error", {
     status,
   });
 };
-
-export { error };
