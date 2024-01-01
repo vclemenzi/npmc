@@ -45,7 +45,9 @@ const { detailed, general } = Astro.props;
     <li class="flex items-center space-x-2">
       <IconPublished />
       <span class="rounded-lg bg-background p-1 pl-2 pr-2">
-        released {new Date(general.time[detailed.version]).toLocaleDateString()}
+        released {
+          general.time ? new Date(general.time[detailed.version]).toLocaleDateString() : "never"
+        }
       </span>
     </li>
   </ul>
