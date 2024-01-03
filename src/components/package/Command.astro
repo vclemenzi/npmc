@@ -7,12 +7,12 @@ interface Props {
 }
 
 const { detailed, general } = Astro.props;
+
+const isLatest = Object.keys(general.versions).pop() === detailed.version;
 ---
 
 <div
   class="overflow-x-auto whitespace-nowrap rounded-lg border bg-background p-2 pl-5 pr-5 text-center font-code text-lg"
 >
-  npm i {detailed.name}{
-    Object.keys(general.versions).at(-1) === detailed.version ? "" : `@${detailed.version}`
-  }
+  npm i {detailed.name}{isLatest ? "" : `@${detailed.version}`}
 </div>
