@@ -25,7 +25,7 @@ const query = Astro.url.searchParams.get("q") || "";
   <body>
     {
       path !== "/" ? (
-        <nav class="md:flex md:items-center text-center md:justify-between md:p-1 pb-4 md:pl-4 md:pr-4">
+        <nav class="pb-4 text-center md:flex md:items-center md:justify-between md:p-1 md:pl-4 md:pr-4">
           <div class="hidden md:block">
             <a class="text-xl text-white no-underline" href="/">
               NPMC
@@ -37,7 +37,7 @@ const query = Astro.url.searchParams.get("q") || "";
               <input
                 name="q"
                 placeholder="Search on npm..."
-                class="w-96 rounded-2xl border-0 bg-surface p-2 pl-4 pr-4 text-xl text-white focus:outline-none"
+                class="w-80 rounded-2xl border-0 bg-surface p-2 pl-4 pr-4 text-xl text-white focus:outline-none"
                 value={query}
               />
             </form>
