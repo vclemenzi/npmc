@@ -22,8 +22,8 @@ const { detailed } = Astro.props;
           class="overflow-x-auto whitespace-nowrap rounded-lg bg-background p-2 text-white no-underline"
         >
           <span class="pl-2 pr-2">
-            {detailed.repository?.url.replace("git+", "").replace("git://", "").substring(0, 27)}
-            {detailed.repository?.url ? (detailed.repository.url.length > 28 ? "..." : "") : ""}
+            {detailed.repository?.url.replace("git+", "").replace("git://", "").substring(0, 20)}
+            {detailed.repository?.url ? (detailed.repository.url.length > 21 ? "..." : "") : ""}
           </span>
         </a>
       </>
