@@ -12,7 +12,8 @@
     "astro": "astro",
     "format": "prettier \"./**/*.{js,ts,astro}\" --write",
     "prepare": "husky install",
-    "lint": "prettier --check \"./**/*.{js,ts,astro}\" && astro check"
+    "lint": "prettier --check \"./**/*.{js,ts,astro}\" && astro check",
+    "commitlint": "commitlint --edit"
   },
   "dependencies": {
     "astro": "^4.0.8",
