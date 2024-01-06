@@ -1,12 +1,12 @@
-FROM node:18 AS runtime
+FROM oven/bun:1  AS runtime
 WORKDIR /app
 
 COPY . .
 
-RUN npm install
-RUN npm run build
+RUN bun install --ignore-scripts 
+RUN bunx --bun astro build
 
 ENV HOST=0.0.0.0
 ENV PORT=4321
 EXPOSE 4321
-CMD node ./dist/server/entry.mjs
+CMD bun ./dist/server/entry.mjs
