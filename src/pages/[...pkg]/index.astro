@@ -136,7 +136,8 @@ if (general.error) return await error(404);
                         <a class="text-white no-underline" href={`/~${user.name}`}>
                           <div class="mb-2 flex items-center space-x-2">
                             <img
-                              class="h-10 w-10 rounded-full"
+                              class="h-11 w-11 rounded-full"
+                              alt={`@${user.name}`}
                               src={`/~${user.name}/profile.png`}
                             />
                             <span class="rounded-lg bg-background p-1 pl-2 pr-2">{user.name}</span>
@@ -163,7 +164,7 @@ if (general.error) return await error(404);
 
 <style is:global>
   a {
-    @apply text-blue-600 no-underline hover:underline;
+    @apply text-blue-500 no-underline hover:underline;
   }
 
   img {

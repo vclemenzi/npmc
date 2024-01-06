@@ -16,7 +16,9 @@
     "commitlint": "commitlint --edit"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.0.4",
     "astro": "^4.0.8",
+    "astro-compressor": "^0.4.1",
     "chart.js": "^4.4.1",
     "cheerio": "1.0.0-rc.12",
     "highlight.js": "^11.9.0",

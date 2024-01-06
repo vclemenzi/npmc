@@ -4,5 +4,6 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react",
     "types": ["bun-types"]
-  }
+  },
+  "ignore": ["node_modules", "dist", "build"]
 }

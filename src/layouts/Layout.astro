@@ -20,6 +20,7 @@ const query = Astro.url.searchParams.get("q") || "";
     <meta name="description" content={description || "Explore over +1M packages"} />
     {img ? <meta property="og:image" content={img} /> : ""}
     <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
     <title>{title}</title>
   </head>
   <body>
