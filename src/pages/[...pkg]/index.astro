@@ -46,115 +46,119 @@ if (general.error) return await error(404);
   title={`${detailed.name}@${detailed.version}` || "Unknow"}
   description={detailed.description}
 >
-  <main class="overflow-x-hidden md:p-3">
-    <PackageCard
-      name={detailed.name}
-      description={detailed.description}
-      version={detailed.version}
-      keywords={detailed.keywords || []}
-      types={detailed.types}
-    />
+  <main class="items-center overflow-x-hidden md:p-4 2xl:flex 2xl:justify-center">
+    <div class="2xl:min-w-[50%] 2xl:max-w-[50%]">
+      <PackageCard
+        name={detailed.name}
+        description={detailed.description}
+        version={detailed.version}
+        keywords={detailed.keywords || []}
+        types={detailed.types}
+      />
 
-    <br />
+      <br />
 
-    <div class="md:flex md:space-x-3">
-      <div class="md:w-3/4">
-        <div
-          class="flex items-center space-x-3 overflow-x-auto whitespace-nowrap rounded-t-2xl bg-surface p-3"
-        >
-          <a
-            href={`/${pkg}`}
-            class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
-              tab === "1" ? "text-purple-400" : "text-white"
-            }`}
+      <div class="md:flex md:space-x-3">
+        <div class="md:w-3/4">
+          <div
+            class="flex items-center space-x-3 overflow-x-auto whitespace-nowrap rounded-t-2xl bg-surface p-3"
           >
-            Readme
-          </a>
-          <a
-            href={`/${pkg}?tab=2`}
-            class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
-              tab === "2" ? "text-purple-400" : "text-white"
-            }`}
-          >
-            Versions
-          </a>
-          <a
-            href={`/${pkg}?tab=3`}
-            class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
-              tab === "3" ? "text-purple-400" : "text-white"
-            }`}
-          >
-            Dependencies
-          </a>
+            <a
+              href={`/${pkg}`}
+              class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
+                tab === "1" ? "text-purple-400" : "text-white"
+              }`}
+            >
+              Readme
+            </a>
+            <a
+              href={`/${pkg}?tab=2`}
+              class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
+                tab === "2" ? "text-purple-400" : "text-white"
+              }`}
+            >
+              Versions
+            </a>
+            <a
+              href={`/${pkg}?tab=3`}
+              class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
+                tab === "3" ? "text-purple-400" : "text-white"
+              }`}
+            >
+              Dependencies
+            </a>
 
-          <a
-            href={`/${pkg}?tab=4`}
-            class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
-              tab === "4" ? "text-purple-400" : "text-white"
-            }`}
-          >
-            Scripts
-          </a>
+            <a
+              href={`/${pkg}?tab=4`}
+              class={`font-bold bg-background p-2 pl-4 pr-4 rounded-xl ${
+                tab === "4" ? "text-purple-400" : "text-white"
+              }`}
+            >
+              Scripts
+            </a>
+          </div>
+
+          {
+            tab === "1" ? (
+              <Readme {general} />
+            ) : tab === "2" ? (
+              <Versions {detailed} {general} />
+            ) : tab === "3" ? (
+              <Dependencies {detailed} />
+            ) : (
+              <Scripts {detailed} />
+            )
+          }
         </div>
 
-        {
-          tab === "1" ? (
-            <Readme {general} />
-          ) : tab === "2" ? (
-            <Versions {detailed} {general} />
-          ) : tab === "3" ? (
-            <Dependencies {detailed} />
-          ) : (
-            <Scripts {detailed} />
-          )
-        }
-      </div>
-
-      <div class="mt-3 rounded-2xl bg-surface pb-2 pl-4 pr-4 md:mt-0 md:w-1/4">
-        <div class="pt-5">
-          <Command {detailed} {general} />
-        </div>
-        <External {detailed} />
-        <Metadata {detailed} {general} />
-        <div>
-          <h2>Downloads</h2>
-          <PackageDownloads client:only name={detailed.name} />
-          <noscript>
-            <a href={`/${pkg}/downloads`}>Downloads Tab Here</a>
-          </noscript>
-        </div>
-        <div>
-          <h2>Maintainers</h2>
+        <div class="mt-3 rounded-2xl bg-surface pb-2 pl-4 pr-4 md:mt-0 md:w-1/4">
+          <div class="pt-5">
+            <Command {detailed} {general} />
+          </div>
+          <External {detailed} />
+          <Metadata {detailed} {general} />
           <div>
-            {
-              detailed.maintainers
-                ? detailed.maintainers.map((user) => {
-                    const m = detailed.maintainers?.length;
+            <h2>Downloads</h2>
+            <PackageDownloads client:only name={detailed.name} />
+            <noscript>
+              <a href={`/${pkg}/downloads`}>Downloads Tab Here</a>
+            </noscript>
+          </div>
+          <div>
+            <h2>Maintainers</h2>
+            <div>
+              {
+                detailed.maintainers
+                  ? detailed.maintainers.map((user) => {
+                      const m = detailed.maintainers?.length;
 
-                    if (m && m < 11) {
-                      return (
-                        <a class="text-white no-underline" href={`/~${user.name}`}>
-                          <div class="mb-2 flex items-center space-x-2">
-                            <img
-                              class="h-11 w-11 rounded-full"
-                              alt={`@${user.name}`}
-                              src={`/~${user.name}/profile.png`}
-                            />
-                            <span class="rounded-lg bg-background p-1 pl-2 pr-2">{user.name}</span>
-                            <br />
-                          </div>
-                        </a>
-                      );
-                    } else {
-                      return (
-                        <a class="text-white no-underline" href={`/~${user.name}`}>
-                          <span>{user.name},</span>
-                        </a>
-                      );
-                    }
-                  })
-                : detailed.author?.name
-            }
+                      if (m && m < 11) {
+                        return (
+                          <a class="text-white no-underline" href={`/~${user.name}`}>
+                            <div class="mb-2 flex items-center space-x-2">
+                              <img
+                                class="h-11 w-11 rounded-full"
+                                alt={`@${user.name}`}
+                                src={`/~${user.name}/profile.png`}
+                              />
+                              <span class="rounded-lg bg-background p-1 pl-2 pr-2">
+                                {user.name}
+                              </span>
+                              <br />
+                            </div>
+                          </a>
+                        );
+                      } else {
+                        return (
+                          <a class="text-white no-underline" href={`/~${user.name}`}>
+                            <span>{user.name},</span>
+                          </a>
+                        );
+                      }
+                    })
+                  : detailed.author?.name
+              }
+            </div>
           </div>
         </div>
       </div>
