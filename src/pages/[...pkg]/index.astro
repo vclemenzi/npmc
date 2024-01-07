@@ -46,8 +46,8 @@ if (general.error) return await error(404);
   title={`${detailed.name}@${detailed.version}` || "Unknow"}
   description={detailed.description}
 >
-  <main class="items-center overflow-x-hidden md:p-4 2xl:flex 2xl:justify-center">
-    <div class="2xl:min-w-[50%] 2xl:max-w-[50%]">
+  <main class="items-center overflow-x-hidden md:p-4">
+    <div>
       <PackageCard
         name={detailed.name}
         description={detailed.description}

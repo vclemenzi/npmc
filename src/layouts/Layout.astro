@@ -57,7 +57,11 @@ const query = Astro.url.searchParams.get("q") || "";
         ""
       )
     }
-    <slot />
+    <div class="2xl:flex 2xl:justify-center">
+      <div class="2xl:min-w-[50%] 2xl:max-w-[50%]">
+        <slot />
+      </div>
+    </div>
   </body>
 </html>
 
