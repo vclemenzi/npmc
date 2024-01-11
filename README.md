@@ -17,6 +17,21 @@ Development and Future Improvements
 
 NPMC is an evolving project. We are constantly working on enhancements and improvements to bring you an even better user experience. Expect updates and new features in the near future as we strive to make NPMC the go-to choice for npm management.
 
+## Selfhost
+You can host npmc yourself using Docker, the docker image dosn't use node but bun!
+
+```bash
+git clone https://github.com/vclemenzi/npmc
+```
+
+```bash
+docker build . -t vclemenzi/npmc
+```
+
+```bash
+docker run -p 4321:4321 vclemenzi/npmc
+```
+
 ## Acknowledgments
 
 We extend our heartfelt thanks to all contributors who have dedicated their time and expertise to make NPMC better.
