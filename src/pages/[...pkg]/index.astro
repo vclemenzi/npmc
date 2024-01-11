@@ -19,9 +19,11 @@ interface Props {
 const { pkg } = Astro.params;
 const tab = Astro.url.searchParams.get("tab") || "1";
 
+if (!pkg) return await error(404);
+
 // Get Version or use latest
 let version = "latest";
-const list = pkg?.split("/") as string[];
+const list = pkg.split("/");
 
 list.forEach((e) => {
   if (/^v\d+./.test(e)) {
@@ -29,7 +31,7 @@ list.forEach((e) => {
   }
 });
 
-const packageName = pkg?.replace(`/v${version}`, "");
+const packageName = pkg.replace(`/v${version}`, "");
 const [general, detailed] = await Promise.all([
   fetch(`https://registry.npmjs.com/${packageName}`).then(
     (res) => res.json() as Promise<PackageGeneral>,

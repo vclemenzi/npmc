@@ -16,4 +16,4 @@ NPMC is an evolving project. We are constantly working on enhancements and impro
 ## Acknowledgments
 
 We extend our heartfelt thanks to all contributors who have dedicated their time and expertise to make NPMC better.
-NPMC is licensed under the MIT License. Your use of this software is subject to the terms and conditions of this license.
+NPMC is licensed under the MIT License. Your use of this software is subject to the terms and conditions of this license. Logo made by @nick747
