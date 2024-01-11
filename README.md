@@ -1,6 +1,10 @@
-# NPMC
+<div align="center">
 
-Is an alternative client for npm that have some cool features!
+![logo](./public/logo/dark.png)
+
+# NPMC
+Npmc Is an alternative client for npm that have some cool features!
+</div>
 
 ## Features
 
