@@ -38,7 +38,7 @@ const { detailed, general } = Astro.props;
     <li class="flex items-center space-x-2">
       <IconUser />
       <span class="rounded-lg bg-background p-1 pl-2 pr-2">
-        {detailed.author?.name || "Unknown"}
+        {detailed.author ? detailed.author.name || "Unknown" : "Unknown"}
       </span>
     </li>
 

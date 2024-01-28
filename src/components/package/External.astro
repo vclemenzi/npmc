@@ -37,7 +37,7 @@ const { detailed } = Astro.props;
       <>
         <h2>Homepage</h2>
         <a href={detailed.homepage} class="rounded-lg bg-background p-2 text-white no-underline">
-          <span>
+          <span class="pl-2 pr-2">
             {detailed.homepage
               ? detailed.homepage
                   .replace("https://", "")
