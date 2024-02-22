@@ -14,5 +14,7 @@ export default {
       'code': ["monospace", "JetBrains Mono"]
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }
