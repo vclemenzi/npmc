@@ -4,21 +4,23 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout title="NPMC">
   <div class="pt-4 text-center md:flex md:justify-center md:pt-96">
-    <div>
-      <h1 class="text-center text-4xl md:text-5xl">
-        Explore over 1M <span class="text-purple-500">packages</span>
-      </h1>
+    <div class="space-y-8">
+      <h1 class="text-5xl font-bold">npmc.dev</h1>
 
-      <form method="get" action="/-/search">
+      <form method="get" action="/-/search" class="flex justify-center space-x-3">
         <input
           name="q"
-          class="w-80 rounded-2xl border-0 bg-surface p-2 pl-4 pr-4 text-xl text-white focus:outline-none md:w-full"
-          placeholder="Like react, vue, astro..."
+          class="w-96 rounded-xl border-none p-2 text-center text-lg shadow-md focus:outline-none"
+          autocomplete="off"
+          placeholder="Search for a package"
         />
+        <button
+          type="submit"
+          class="rounded-xl bg-primary p-2 text-xl text-white shadow-md transition-transform focus:outline-none active:scale-90"
+        >
+          ~~
+        </button>
       </form>
-      <footer class="pt-4 text-center">
-        Made with ❤️ by Contributors. Made fast by Cloudflare Pages ⚡⚡⚡.
-      </footer>
     </div>
   </div>
 </Layout>

@@ -12,15 +12,17 @@ interface Props {
 const { name, version, description, keywords, types } = Astro.props;
 ---
 
-<div class="rounded-2xl bg-surface p-3 pl-5 pr-5">
+<div class="rounded-2xl bg-surface p-5 pl-10 pr-10">
   <div>
-    <div class="flex items-center space-x-2">
-      <h1 class="text-2xl">{name}</h1>
-      <span class="rounded-xl bg-background p-1 pl-3 pr-3 text-xl">v{version}</span>
-      <span class="text-[#2d79c7]">{types ? <IconTypescript /> : ""}</span>
+    <div class="flex items-center justify-between space-x-1">
+      <div class="mb-0 flex items-center">
+        <h1 class="mb-0 text-3xl font-bold">{name}</h1>
+        <span class="text-[#2d79c7]">{types ? <IconTypescript /> : ""}</span>
+      </div>
+      <span class="rounded-xl p-1 pl-3 pr-3 text-xl text-gray-400">v{version}</span>
     </div>
 
-    <span class="text-lg">{description}</span>
+    <p class="mb-0 pb-5 text-lg opacity-70">{description}</p>
 
     <div class="mt-2 space-x-2 break-words">
       {
@@ -28,7 +30,7 @@ const { name, version, description, keywords, types } = Astro.props;
           ? keywords.map((keyword: string, i: number) => {
               if (i > 8) return "";
               return (
-                <span class="rounded-lg bg-purple-400 p-1 pl-2 pr-2 text-lg/8 text-background">
+                <span class="rounded-full border-2 border-purple-700 bg-purple-400 p-1 pl-2 pr-2 text-lg/8 text-background">
                   {keyword}
                 </span>
               );
@@ -38,7 +40,7 @@ const { name, version, description, keywords, types } = Astro.props;
       {
         keywords ? (
           keywords.length > 8 ? (
-            <span class="text-lg/8">and {keywords.length - 8} more...</span>
+            <span class="text-lg/8">+{keywords.length - 8}</span>
           ) : (
             ""
           )

@@ -66,31 +66,7 @@ const query = Astro.url.searchParams.get("q") || "";
 </html>
 
 <style is:global>
-  @import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&family=Roboto&display=swap");
-
-  * {
-    font-family: "Roboto", sans-serif;
-  }
-
   body {
-    @apply bg-background text-white;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 5px;
-    height: 5px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #0d0f14;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #20242d;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #20242d;
+    @apply bg-background;
   }
 </style>

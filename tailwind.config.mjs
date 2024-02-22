@@ -4,7 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        "background": "#0d0f14",
+        "background": "#f5f4f9",
+        "secondary": "#F49E4C",
+        "primary": "#68D89B",
         "surface": "#1b1e24"
       }
     },
@@ -13,7 +15,4 @@ export default {
     }
   },
   plugins: [],
-  corePlugins: {
-    preflight: false
-  }
 }
