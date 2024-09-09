@@ -4,16 +4,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        "background": "#0d0f14",
-        "surface": "#1b1e24"
+        "background": "#0C0D17",
+        "primary": "#D93030"
       }
     },
-    fontFamily: {
-      'code': ["monospace", "JetBrains Mono"]
-    }
   },
   plugins: [],
-  corePlugins: {
-    preflight: false
-  }
 }

@@ -1,5 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /_astro/
-
-Sitemap: https://npmc.dev/sitemap-index.xml
