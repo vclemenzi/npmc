@@ -1,9 +1,16 @@
 ---
+import { Image } from "astro:assets";
+import logo from "@/assets/logo.svg";
+import searchIcon from "@/assets/icons/search.svg";
+
 interface Props {
   title: string;
+  search?: boolean;
 }
 
-const { title } = Astro.props;
+const path = Astro.url.pathname;
+
+const { title, search } = Astro.props;
 ---
 
 <!doctype html>
@@ -13,10 +20,98 @@ const { title } = Astro.props;
     <meta name="description" content="Astro description" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
   </head>
-  <body class="bg-background">
-    <slot />
+  <body class="bg-background text-white">
+    <nav class="flex items-center justify-between lg:px-10">
+      <div class="flex items-center space-x-4">
+        <Image src={logo} alt="NPMc logo" class="h-20 w-20" />
+        {
+          !search ? (
+            <div class="flex items-center space-x-4 rounded-lg border border-white/10 bg-white/5 py-1.5 lg:px-10">
+              <a
+                href="/"
+                class={`text-sm font-bold uppercase ${path === "/" ? "text-primary" : "text-white"}`}
+              >
+                Home
+              </a>
+              <a
+                href="/"
+                class={`text-sm font-bold uppercase ${path === "/faq" ? "text-primary" : "text-white"}`}
+              >
+                faq
+              </a>
+              <a
+                href="/"
+                class={`text-sm font-bold uppercase ${path === "/support" ? "text-primary" : "text-white"}`}
+              >
+                support
+              </a>
+              <a
+                href="https://github.com/vclemenzi/npmc"
+                class="text-sm font-bold uppercase text-white"
+              >
+                source
+              </a>
+            </div>
+          ) : (
+            <form
+              class="flex rounded-lg border border-white/10 bg-white/5"
+              method="get"
+              action="/search"
+            >
+              <input
+                type="text"
+                placeholder="Search"
+                class="bg-transparent px-4 py-1.5 text-sm text-white outline-none"
+              />
+              <button
+                type="submit"
+                class="rounded-r-lg border-white/10 bg-white/10 px-4 text-sm font-bold uppercase text-white"
+              >
+                <Image src={searchIcon} alt="search" />
+              </button>
+            </form>
+          )
+        }
+      </div>
+
+      <div>
+        {
+          search && (
+            <div class="flex items-center space-x-4 rounded-lg border border-white/10 bg-white/5 py-1.5 lg:px-10">
+              <a
+                href="/"
+                class={`text-sm font-bold uppercase ${path === "/" ? "text-primary" : "text-white"}`}
+              >
+                Home
+              </a>
+              <a
+                href="/"
+                class={`text-sm font-bold uppercase ${path === "/faq" ? "text-primary" : "text-white"}`}
+              >
+                faq
+              </a>
+              <a
+                href="/"
+                class={`text-sm font-bold uppercase ${path === "/support" ? "text-primary" : "text-white"}`}
+              >
+                support
+              </a>
+              <a
+                href="https://github.com/vclemenzi/npmc"
+                class="text-sm font-bold uppercase text-white"
+              >
+                source
+              </a>
+            </div>
+          )
+        }
+      </div>
+    </nav>
+
+    <main>
+      <slot />
+    </main>
   </body>
 </html>

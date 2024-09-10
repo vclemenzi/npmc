@@ -1,5 +1,60 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import { Image } from "astro:assets";
+import Layout from "@/layouts/Layout.astro";
+import Card from "@/components/Card.astro";
+import search from "@/assets/icons/search.svg";
+import logo from "@/assets/logo.svg";
 ---
 
-<Layout title="NPMc"></Layout>
+<Layout title="NPMc">
+  <div class="flex justify-center py-12 text-center">
+    <div class="w-1/2 space-y-6">
+      <h1 class="text-4xl font-extrabold lg:text-6xl">
+        Browser <span class="text-primary">over</span>, <br />
+        <span class="text-primary">1 million</span>
+        packages
+      </h1>
+
+      <p class="text-lg text-white/80">
+        NPMc is a client for the NPM registry. It allows you to search <br /> for packages and view their
+        details.
+      </p>
+
+      <form action="/search" method="GET" class="flex w-full">
+        <input
+          type="text"
+          name="q"
+          placeholder="Search for packages"
+          class="w-full rounded-l-lg border-2 border-white/5 bg-white/5 px-6 py-2.5 text-2xl outline-none"
+        />
+        <button
+          type="submit"
+          class="rounded-r-lg border-2 border-l-0 border-white/5 bg-white/10 px-4 py-2 text-white"
+        >
+          <Image src={search} alt="Search" class="h-10 w-10" />
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div class="space-y-2 px-10">
+    <h2 class="flex items-center space-x-2">
+      <Image src={logo} alt="NPMc" class="h-20 w-20" />
+      <span class="text-2xl font-bold">Check out our features</span>
+    </h2>
+    <div class="grid grid-cols-3 gap-x-8">
+      <Card icon="github" title="Open Source">
+        NPMc is open source and available on GitHub. You can contribute to the project by opening
+        issues and pull requests.
+      </Card>
+      <Card icon="js" title="No unnecessary js">
+        NPMc is built with efficiency in mind. It doesn't use any unnecessary JavaScript and is
+        optimized for performance.
+      </Card>
+      <Card icon="code" title="Use package faster">
+        Copy package details, install commands, and more with a single click. NPMc is designed to
+        make your life easier.
+      </Card>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,29 @@
+---
+import github from "@/assets/icons/github.svg";
+import js from "@/assets/icons/js.svg";
+import code from "@/assets/icons/code.svg";
+import { Image } from "astro:assets";
+
+interface Props {
+  icon: "github" | "js" | "code";
+  title: string;
+}
+
+const { icon, title } = Astro.props;
+---
+
+<div class="rounded-xl border border-white/10 bg-white/5 p-8">
+  <div class="flex items-center">
+    <Image
+      src={icon === "github" ? github : icon == "js" ? js : code}
+      alt={title}
+      class="h-16 w-16 rounded-xl border border-white/10 bg-white/10 p-2"
+    />
+
+    <h3 class="ml-4 text-2xl font-semibold text-white">{title}</h3>
+  </div>
+
+  <p class="mt-4 text-white/70">
+    <slot />
+  </p>
+</div>
