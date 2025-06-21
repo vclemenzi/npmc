@@ -1,3 +1,5 @@
+# NPMC IS BEING REWRITTEN FROM SCRATCH! THIS IS THE OLD REPOSITORY
+
 <div align="center">
 
 ![logo](./public/logo/dark.png)
